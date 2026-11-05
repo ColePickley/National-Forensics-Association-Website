@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Forensic Association | Search Archives</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="utility-bar">
+    <div>
+      <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
+    </div>
+    <div>
+      <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
+      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
+      <a href="mailto:blah@gmail.com">Contact Editors</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="cropped-nfa-red-bubble.png" alt="NFA Crest" class="brand-logo" />
+        <div class="brand-text">
+          <span>Established 1971</span>
+          <strong>NATIONAL FORENSIC ASSOCIATION</strong>
+        </div>
+      </a>
+
+      <nav class="nav-tabs" aria-label="Primary Navigation">
+        <a href="home.html" class="tab-btn">Home</a>
+        <a href="competition.html" class="tab-btn">Competition &amp; LD</a>
+        <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
+        <a href="board.html" class="tab-btn">Message Board</a>
+        <a href="archives.html" class="tab-btn active">Search Archives</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Historical Records &amp; Governance</p>
+        <h2>Search NFA Archives (1971–Present)</h2>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="archive-search" class="search-input" placeholder="Search Bylaws, Hall of Fame, NFJ Volume 39, LD Resolutions..." oninput="renderArchives()" />
+      <select id="archive-type" class="select-input" onchange="renderArchives()">
+        <option value="all">All Archive Types</option>
+        <option value="Governance">Governing Documents</option>
+        <option value="Journal">NFJ Articles (Vol. 39)</option>
+        <option value="History">Hall of Fame &amp; Champions</option>
+        <option value="Rules">Competition Rules</option>
+      </select>
+    </div>
+
+    <div id="archive-container" class="grid-3"></div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
+      </div>
+      <div>
+        Designed to match the NFA Digital Archive &amp; Championship Portal
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const archives = [
+      { title: "NFA Constitution (Official Governing Document)", type: "Governance", year: "2023", desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.", url: "https://nationalforensicassociation.org/about-nfa/" },
+      { title: "NFA Bylaws & Tournament Procedures", type: "Governance", year: "2023", desc: "Complete rules on student eligibility, qualification criteria, section sizing, judge placement, and 1–30 rating scales.", url: "https://nationalforensicassociation.org/wp-content/uploads/2023/01/nfa-bylaws-january-2023-1.pdf" },
+      { title: "12. Lincoln-Douglas Debate Event Description", type: "Rules", year: "2022", desc: "Official stock issues paradigm (Harms, Inherency, Solvency, Topicality), evidence verification rules, and delivery standards.", url: "https://nationalforensicassociation.org/wp-content/uploads/2022/04/ld-description-1.pdf" },
+      { title: "NFA Hall of Fame Inductees Archive (1971–Present)", type: "History", year: "1971–2026", desc: "Historical roster of Hall of Fame members and annual January 15 nomination guidelines.", url: "https://nationalforensicassociation.org/nfa-hall-of-fame/" },
+      { title: "Cultivating Success: Exploring Mentorship in Collegiate Speech & Debate", type: "Journal", year: "2026", desc: "By Vanessa Fowler — Published in National Forensic Journal, Volume 39 (2026).", url: "https://cornerstone.lib.mnsu.edu/nfj/" },
+      { title: "Aligning Vision: Issues Facing Disability Accommodation in the Forensics Space", type: "Journal", year: "2026", desc: "By Ryan Corcoran — Special Forum on Accessibility in Collegiate Forensics, NFJ Volume 39.", url: "https://cornerstone.lib.mnsu.edu/nfj/" }
+    ];
+
+    function renderArchives() {
+      const q = document.getElementById('archive-search').value.toLowerCase();
+      const type = document.getElementById('archive-type').value;
+      const container = document.getElementById('archive-container');
+
+      const filtered = archives.filter(a =>
+        (type === 'all' || a.type === type) &&
+        (a.title.toLowerCase().includes(q) || a.desc.toLowerCase().includes(q) || a.year.toLowerCase().includes(q))
+      );
+
+      container.innerHTML = filtered.map(a => `
+        <article class="card">
+          <div>
+            <span class="badge">${a.type} • ${a.year}</span>
+            <h3>${a.title}</h3>
+            <p>${a.desc}</p>
+          </div>
+          <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">Open Document / Record →</a>
+        </article>
+      `).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', renderArchives);
+  </script>
+
+</body>
+</html>

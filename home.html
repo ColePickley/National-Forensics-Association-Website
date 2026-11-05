@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Forensic Association | Official Portal</title>
+  <style>
+    :root {
+      --navy: #0B1B3D;
+      --navy-dark: #050E21;
+      --navy-card: rgba(11, 27, 61, 0.75);
+      --crimson: #8B0000;
+      --crimson-light: #A51C1C;
+      --gold: #D4AF37;
+      --gold-light: #F3E5AB;
+      --white: #FFFFFF;
+      --slate: #CBD5E1;
+      --slate-muted: #94A3B8;
+      --border-gold: rgba(212, 175, 55, 0.28);
+      --radius: 8px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Georgia', serif;
+    }
+
+    /* Top bar */
+    .utility-bar {
+      background: linear-gradient(90deg, var(--crimson) 0%, #5e0000 100%);
+      color: var(--white);
+      font-size: 0.85rem;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .utility-bar a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .utility-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Header & Navigation */
+    header {
+      background: rgba(5, 14, 33, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .brand-text strong {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--slate);
+      border: 1px solid transparent;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .tab-btn.active {
+      background: rgba(212, 175, 55, 0.16);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* Buttons */
+    .btn-gold {
+      background: linear-gradient(135deg, #E5C349 0%, #D4AF37 100%);
+      color: var(--navy-dark);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #F3E5AB 0%, #E5C349 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-outline-light {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--white);
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      padding: 0.7rem 1.35rem;
+      font-size: 0.92rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-outline-light:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Main Layout */
+    main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.25rem 2rem 4rem;
+    }
+
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: radial-gradient(circle at right top, rgba(139, 0, 0, 0.35), rgba(5, 14, 33, 0.9)),
+                  linear-gradient(135deg, rgba(11, 27, 61, 0.95), rgba(5, 14, 33, 0.98));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-banner h1 {
+      font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      color: var(--slate);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-box {
+      background: rgba(5, 14, 33, 0.75);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .hero-stat-box h3 {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding-bottom: 0.5rem;
+    }
+
+    .deadline-list {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    .deadline-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .deadline-list li span:first-child {
+      color: var(--slate);
+    }
+
+    .deadline-list li strong {
+      color: var(--gold-light);
+    }
+
+    /* Grid & Cards */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      padding-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.65rem;
+      color: var(--white);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      margin-bottom: 0.85rem;
+      width: fit-content;
+    }
+
+    .badge-crimson {
+      background: rgba(139, 0, 0, 0.45);
+      color: #FCA5A5;
+      border-color: rgba(220, 38, 38, 0.45);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.65rem;
+      color: var(--white);
+    }
+
+    .card p {
+      color: var(--slate);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Controls (Search & Filter Bar) */
+    .filter-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      background: rgba(5, 14, 33, 0.7);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-gold);
+    }
+
+    .search-input, .select-input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--white);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .select-input option {
+      background: var(--navy-dark);
+      color: var(--white);
+    }
+
+    /* Message Board Table / List */
+    .thread-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .thread-item {
+      background: var(--navy-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .thread-meta {
+      font-size: 0.82rem;
+      color: var(--slate-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* New Post */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 14, 33, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--navy);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-lg);
+      max-width: 540px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background: rgba(5, 14, 33, 0.8);
+      border: 1px solid var(--border-gold);
+      color: var(--white);
+      padding: 0.7rem;
+      border-radius: var(--radius);
+      font-family: inherit;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy-dark);
+      border-top: 1px solid var(--border-gold);
+      padding: 2.5rem 2rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      color: var(--slate-muted);
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-banner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement thingy -->
+  <div class="utility-bar">
+    <div>
+      <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
+    </div>
+    <div>
+      <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
+      <a href="https://" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
+      <a href="mailto:blah@gmail.com">Contact Our TEAM</a>
+    </div>
+  </div>
+
+  <!-- My header code is right HERE :) -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="cropped-nfa-red-bubble.png" alt="NFA Crest" class="brand-logo" />
+        <div class="brand-text">
+          <span>Established 1971</span>
+          <strong>NATIONAL FORENSIC ASSOCIATION</strong>
+        </div>
+      </a>
+
+      <nav class="nav-tabs" aria-label="Primary Navigation">
+        <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">Home</button>
+        <button class="tab-btn" data-tab="competition" onclick="switchTab('competition')">Competition &amp; LD</button>
+        <button class="tab-btn" data-tab="research" onclick="switchTab('research')">Research &amp; NFJ</button>
+        <button class="tab-btn" data-tab="board" onclick="switchTab('board')">Message Board</button>
+        <button class="tab-btn" data-tab="archives" onclick="switchTab('archives')">Search Archives</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HOME TAB ================= -->
+    <section id="tab-home" class="tab-section active">
+      <div class="hero-banner">
+        <div>
+          <p class="eyebrow">Intercollegiate Speech &amp; Debate</p>
+          <h1>Advancing Excellence in Forensic Pedagogy &amp; Competition</h1>
+          <p>
+            Founded in 1971, the National Forensic Association sponsors the annual NFA National Championship Tournament, featuring a full range of literature interpretation, public address, limited preparation, and Lincoln-Douglas policy debate.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-gold" onclick="switchTab('competition')">Explore Events &amp; Rules</button>
+            <button class="btn-outline-light" onclick="switchTab('archives')">Governing Documents &amp; Archives</button>
+          </div>
+        </div>
+
+        <div class="hero-stat-box">
+          <h3>Key Annual Dates &amp; Deadlines</h3>
+          <ul class="deadline-list">
+            <li><span>Type of reward here </span> <strong>Date Here</strong></li>
+            <li><span>Tournament Research Proposals Here</span> <strong>Put a date here or pull a date</strong></li>
+            <li><span>Research Committee Notification Here</span> <strong>Put a date here or pull a date</strong></li>
+            <li><span>Experimental Event Proposals Here</span> <strong>Put a date here or pull a date</strong></li>
+            <li><span>IRB Approval Submission Here</span> <strong>Put a date here or pull a date</strong></li>
+            <li><span>Annual LD Resolution Release</span> <strong>Put a date here or pull a date/strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Core Pillars of the NFA</h2>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div>
+            <span class="badge"> important information here maybe???????</span>
+            <h3>News block</h3>
+            <ptors yaddayadda here
+          </div>>
+          <button class="btn-outline-light" onclick="switchTab('competition')">View Event Standards →</button>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="badge badge-crimson">Important infomation here.</span>
+            <h3>National Forensic Journal (NFJ)</h3>
+            <p>
+             yaddayadda
+          </div>
+          <button class="btn-outline-light" onclick="switchTab('research')">Journal &amp; IRB Guidelines →</button>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="badge">Governance &amp; Legacy</span>
+            <h3>Constitution, Bylaws &amp; Hall of Fame</h3>
+            <p>
+              Access official NFA governing documents, qualification procedures, tabulation rules, and over five decades of Sweepstakes Champions and Hall of Fame inductees.
+            </p>
+          </div>
+          <button class="btn-outline-light" onclick="switchTab('archives')">Browse Official Archives →</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Competition tab -->
+    <section id="tab-competition" class="tab-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">NFA Code of Standards &amp; Event Rules</p>
+          <h2>Intercollegiate Competition Divisions</h2>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div>
+            <span class="badge">Individual Events (IE)</span>
+            <h3>Public Address, Interpretation &amp; Limited Prep</h3>
+            <p>
+              No speech or program used in competition may have been used prior to September 1 preceding the National Championship Tournament, and no student may perform two cuttings from the same literary work in the same year.
+            </p>
+            <p>
+              <strong>Extemporaneous Speaking:</strong> Speeches must be the original work of the speaker prepared after topics are drawn; consultation after draw is strictly prohibited.
+            </p>
+          </div>
+          <button class="btn-gold" onclick="switchTab('archives')">Download NFA Bylaws &amp; IE Rules</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <span class="badge badge-crimson">One-Person Policy Debate</span>
+            <h3>Post here :P</h3>
+            <p>
+              yaddayadda</strong>.
+            </p>
+            <p>
+              <strong>Communication Emphasis:</strong> Rapid-fire "spread delivery" is antithetical to the event. Speeches must remain comprehensible and persuasive, with accurate, contextualized evidence. The annual resolution is announced every <strong>July 1</strong>.
+            </p>
+          </div>
+          <button class="btn-outline-light" onclick="switchTab('archives')">View LD Event Description PDF</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="badge">Eligibility &amp; Qualification</span>
+        <h3>National Championship Tournament Eligibility</h3>
+        <p>
+          Contestants must be undergraduate students enrolled at the institution they represent for more than a course in forensics, within eight semesters of competitive eligibility (and up to four years of national tournament competition). The tournament qualification and entry deadline falls on the third Monday prior to the National Championship Tournament.
+        </p>
+      </div>
+    </section>
+
+    <!-- researchtab-->
+    <section id="tab-research" class="tab-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Scholarly Inquiry &amp; Pedagogy</p>
+          <h2>National Forensic Journal &amp; Tournament Research</h2>
+        </div>
+        <a href="" target="_blank" rel="noopener" class="btn-gold">Submit  →</a>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div>
+            <span class="badge">ISSN: 0749-1042</span>
+            <h3>About the National Forensic Journal</h3>
+            <p>
+              The <em>National Forensic Journal</em> welcomes double-spaced APA (7th ed.) manuscripts addressing instruction, practice, critique, and research in speech, debate, and performance activities. Submissions undergo anonymous peer review (~3 months) and require a 250-word abstract.
+            </p>
+            <p>
+              <strong>Editorial Leadership:</strong> Dr. Justin Rudnick (Editor) &amp; Dr. Kevin Minch (Associate Editor). Questions: <a href="mailto:nfajournal@gmail.com" style="color: var(--gold-light);">nfajournal@gmail.com</a>.
+            </p>
+          </div>
+          <a href="" target="_blank" rel="noopener" class="btn-outline-light">Read Aims &amp; Scope</a>
+        </div>
+
+        <div class="card">
+          <div>
+            <span class="badge badge-crimson">NFA Research Committee</span>
+            <h3>Conducting Research at Nationals</h3>
+            <p>
+              All research conducted at the NFA National Tournament must be approved in advance by the NFA Research Committee and must not disrupt students or the tournament schedule:
+            </p>
+            <ul class="deadline-list" style="margin-bottom: 1.25rem;">
+              <li><span>1-Page Topic + 1-Page Methodology Due</span> <strong>February 10</strong></li>
+              <li><span>Committee Approval / Denial Notification</span> <strong>February 28</strong></li>
+              <li><span>Official Institutional IRB Approval Due</span> <strong>April 1</strong></li>
+              <li><span>Preliminary Findings Report Due</span> <strong>September 30</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= M board ================= -->
+    <section id="tab-board" class="tab-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Community Forum</p>
+          <h2>NFA Member &amp; Coach Message Board</h2>
+        </div>
+        <button class="btn-gold" onclick="toggleModal(true)">+ New Discussion Thread</button>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" id="board-search" class="search-input" placeholder="Search discussion threads, topics, or authors..." oninput="renderThreads()" />
+        <select id="board-category" class="select-input" onchange="renderThreads()">
+          <option value="all">All Categories</option>
+          <option value="Tournament">National Tournament</option>
+          <option value="LD Debate">Lincoln-Douglas Debate</option>
+          <option value="Pedagogy">Coaching &amp; Pedagogy</option>
+          <option value="Research">NFJ &amp; Calls for Papers</option>
+        </select>
+      </div>
+
+      <div id="thread-container" class="thread-list"></div>
+    </section>
+
+    <!-- ARCHIVES TAB ================= -->
+    <section id="tab-archives" class="tab-section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Historical Records &amp; Governance</p>
+          <h2>Search NFA Archives (1971–Present)</h2>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" id="archive-search" class="search-input" placeholder="Search Bylaws, Hall of Fame, NFJ Volume 39, LD Resolutions..." oninput="renderArchives()" />
+        <select id="archive-type" class="select-input" onchange="renderArchives()">
+          <option value="all">All Archive Types</option>
+          <option value="Governance">Governing Documents</option>
+          <option value="Journal">NFJ Articles (Vol. 39)</option>
+          <option value="History">Hall of Fame &amp; Champions</option>
+          <option value="Rules">Competition Rules</option>
+        </select>
+      </div>
+
+      <div id="archive-container" class="grid-3"></div>
+    </section>
+  </main>
+
+  <!-- New Discussion Modal -->
+  <div id="post-modal" class="modal-overlay">
+    <div class="modal">
+      <h3 style="margin-bottom: 1rem; color: var(--gold);">Create New Discussion Thread</h3>
+      <div class="form-group">
+        <label for="post-title">Thread Title</label>
+        <input type="text" id="post-title" placeholder="e.g., Hired Judge Pool Coordination for Nationals" />
+      </div>
+      <div class="form-group">
+        <label for="post-cat">Category</label>
+        <select id="post-cat">
+          <option value="Tournament">National Tournament</option>
+          <option value="LD Debate">Lincoln-Douglas Debate</option>
+          <option value="Pedagogy">Coaching &amp; Pedagogy</option>
+          <option value="Research">NFJ &amp; Calls for Papers</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="post-author">Your Name &amp; Institution</label>
+        <input type="text" id="post-author" placeholder="e.g., Director of Forensics, Illinois State" />
+      </div>
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.25rem;">
+        <button class="btn-outline-light" onclick="toggleModal(false)">Cancel</button>
+        <button class="btn-gold" onclick="addThread()">Post Thread</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
+      </div>
+      <div>
+        Designed to match the NFA Digital Archive &amp; Championship Portal
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initial data for Message Board
+    const threads = [
+      { title: "YO THIS IS THE SPOT RIGHT FRIGGIN HERE BABY BOY :P", category: "Debate", author: "someone", date: "", replies: 666 },
+     
+    ];
+
+    // Initial data for Searchable Archives based on actual NFA documents & NFJ Vol. 39
+    const archives = [
+      { title: "NFA Constitution (Official Governing Document)", type: "Governance", year: "2023", desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.", url: "https://nationalforensicassociation.org/about-nfa/" },
+      
+    ];
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      const targetSection = document.getElementById(`tab-${tabName}`) || document.getElementById('tab-home');
+      const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`) || document.querySelector('.tab-btn[data-tab="home"]');
+
+      targetSection.classList.add('active');
+      targetBtn.classList.add('active');
+
+      // Keep URL parameter synced with index.html convention
+      const url = new URL(window.location);
+      url.searchParams.set('tab', tabName);
+      window.history.replaceState({}, '', url);
+    }
+
+    function renderThreads() {
+      const q = document.getElementById('board-search').value.toLowerCase();
+      const cat = document.getElementById('board-category').value;
+      const container = document.getElementById('thread-container');
+
+      const filtered = threads.filter(t =>
+        (cat === 'all' || t.category === cat) &&
+        (t.title.toLowerCase().includes(q) || t.author.toLowerCase().includes(q))
+      );
+
+      container.innerHTML = filtered.map(t => `
+        <div class="thread-item">
+          <div>
+            <span class="badge" style="margin-bottom: 0.35rem;">${t.category}</span>
+            <h3 style="font-size: 1.1rem;">${t.title}</h3>
+            <div class="thread-meta">Posted by <strong>${t.author}</strong> • ${t.date}</div>
+          </div>
+          <div style="text-align: right;">
+            <span class="btn-outline-light" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">${t.replies} Replies →</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleModal(show) {
+      document.getElementById('post-modal').classList.toggle('open', show);
+    }
+
+    function addThread() {
+      const title = document.getElementById('post-title').value.trim();
+      const category = document.getElementById('post-cat').value;
+      const author = document.getElementById('post-author').value.trim() || "NFA Member";
+      if (!title) return;
+
+      threads.unshift({ title, category, author, date: "Just now", replies: 0 });
+      document.getElementById('post-title').value = '';
+      toggleModal(false);
+      renderThreads();
+    }
+
+    function renderArchives() {
+      const q = document.getElementById('archive-search').value.toLowerCase();
+      const type = document.getElementById('archive-type').value;
+      const container = document.getElementById('archive-container');
+
+      const filtered = archives.filter(a =>
+        (type === 'all' || a.type === type) &&
+        (a.title.toLowerCase().includes(q) || a.desc.toLowerCase().includes(q) || a.year.toLowerCase().includes(q))
+      );
+
+      container.innerHTML = filtered.map(a => `
+        <article class="card">
+          <div>
+            <span class="badge">${a.type} • ${a.year}</span>
+            <h3>${a.title}</h3>
+            <p>${a.desc}</p>
+          </div>
+          <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">Open Document / Record →</a>
+        </article>
+      `).join('');
+    }
+
+    // Read ?tab= parameter from index.html on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const initialTab = params.get('tab') || 'home';
+      switchTab(initialTab);
+      renderThreads();
+      renderArchives();
+    });
+  </script>
+</body>
+</html>
