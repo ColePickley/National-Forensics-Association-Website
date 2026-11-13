@@ -6,17 +6,19 @@
   <title>National Forensic Association | Official Portal</title>
   <style>
     :root {
-      --navy: #0B1B3D;
-      --navy-dark: #050E21;
-      --navy-card: rgba(11, 27, 61, 0.75);
-      --crimson: #8B0000;
-      --crimson-light: #A51C1C;
-      --gold: #D4AF37;
-      --gold-light: #F3E5AB;
-      --white: #FFFFFF;
-      --slate: #CBD5E1;
-      --slate-muted: #94A3B8;
-      --border-gold: rgba(212, 175, 55, 0.28);
+      /* Mapped directly from index.html's color palette */
+      --navy: #2e0e0e;
+      --navy-dark: #111111;
+      --navy-card: rgba(17, 17, 17, 0.65);
+      --crimson: #2e0e0e;
+      --crimson-light: #4a1717;
+      --gold: #f5f5f5;
+      --gold-light: #ffffff;
+      --white: #ffffff;
+      --slate: rgba(255, 255, 255, 0.85);
+      --slate-muted: rgba(255, 255, 255, 0.65);
+      --border-gold: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.35);
       --radius: 8px;
       --radius-lg: 14px;
     }
@@ -28,8 +30,9 @@
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at center, var(--navy) 0%, var(--navy-dark) 70%);
+      background-attachment: fixed;
       color: var(--white);
       min-height: 100vh;
       display: flex;
@@ -39,35 +42,39 @@
 
     h1, h2, h3, .serif {
       font-family: 'Georgia', serif;
+      color: var(--gold);
     }
 
     /* Top bar */
     .utility-bar {
-      background: linear-gradient(90deg, var(--crimson) 0%, #5e0000 100%);
+      background: linear-gradient(90deg, var(--crimson) 0%, var(--navy-dark) 100%);
       color: var(--white);
       font-size: 0.85rem;
       padding: 0.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 1px solid var(--border-gold);
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
     .utility-bar a {
-      color: var(--gold-light);
+      color: var(--gold);
       text-decoration: none;
       font-weight: 600;
+      opacity: 0.85;
+      transition: opacity 0.2s;
     }
 
     .utility-bar a:hover {
+      opacity: 1;
       text-decoration: underline;
     }
 
     /* Main Header & Navigation */
     header {
-      background: rgba(5, 14, 33, 0.92);
+      background: rgba(17, 17, 17, 0.75);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-gold);
       position: sticky;
@@ -99,7 +106,7 @@
       height: 54px;
       border-radius: 50%;
       object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
     }
 
     .brand-text span {
@@ -107,7 +114,7 @@
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 2.5px;
-      color: var(--gold);
+      color: var(--slate-muted);
       font-weight: 700;
     }
 
@@ -115,6 +122,7 @@
       font-family: 'Georgia', serif;
       font-size: 1.25rem;
       letter-spacing: 0.5px;
+      color: var(--gold);
     }
 
     .nav-tabs {
@@ -126,7 +134,8 @@
 
     .tab-btn {
       background: transparent;
-      color: var(--slate);
+      color: var(--white);
+      opacity: 0.7;
       border: 1px solid transparent;
       padding: 0.6rem 1.1rem;
       font-size: 0.92rem;
@@ -134,45 +143,47 @@
       border-radius: var(--radius);
       cursor: pointer;
       transition: all 0.2s ease;
+      text-decoration: none;
     }
 
     .tab-btn:hover {
-      color: var(--gold-light);
-      background: rgba(212, 175, 55, 0.08);
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .tab-btn.active {
-      background: rgba(212, 175, 55, 0.16);
-      color: var(--gold);
-      border-color: var(--gold);
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     /* Buttons */
     .btn-gold {
-      background: linear-gradient(135deg, #E5C349 0%, #D4AF37 100%);
+      background: var(--gold);
       color: var(--navy-dark);
-      border: none;
+      border: 1px solid var(--white);
       padding: 0.75rem 1.5rem;
       font-size: 0.95rem;
       font-weight: 700;
       border-radius: var(--radius);
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
       text-decoration: none;
       display: inline-block;
     }
 
     .btn-gold:hover {
-      background: linear-gradient(135deg, #F3E5AB 0%, #E5C349 100%);
+      background: var(--white);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
     }
 
     .btn-outline-light {
       background: rgba(255, 255, 255, 0.05);
       color: var(--white);
-      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 0.7rem 1.35rem;
       font-size: 0.92rem;
       border-radius: var(--radius);
@@ -184,8 +195,8 @@
     }
 
     .btn-outline-light:hover {
-      border-color: var(--gold);
-      background: rgba(212, 175, 55, 0.15);
+      border-color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
 
@@ -214,8 +225,8 @@
 
     /* Hero Banner */
     .hero-banner {
-      background: radial-gradient(circle at right top, rgba(139, 0, 0, 0.35), rgba(5, 14, 33, 0.9)),
-                  linear-gradient(135deg, rgba(11, 27, 61, 0.95), rgba(5, 14, 33, 0.98));
+      background: radial-gradient(circle at right top, rgba(46, 14, 14, 0.85), rgba(17, 17, 17, 0.92)),
+                  linear-gradient(135deg, rgba(46, 14, 14, 0.5), rgba(17, 17, 17, 0.95));
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-lg);
       padding: 3rem 2.5rem;
@@ -224,13 +235,13 @@
       grid-template-columns: 1.6fr 1fr;
       gap: 2rem;
       align-items: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     .eyebrow {
       text-transform: uppercase;
       letter-spacing: 3px;
-      color: var(--gold);
+      color: var(--slate-muted);
       font-size: 0.8rem;
       font-weight: 700;
       margin-bottom: 0.6rem;
@@ -240,6 +251,7 @@
       font-size: clamp(1.85rem, 3.2vw, 2.75rem);
       line-height: 1.2;
       margin-bottom: 1rem;
+      color: var(--gold);
     }
 
     .hero-banner p {
@@ -256,7 +268,7 @@
     }
 
     .hero-stat-box {
-      background: rgba(5, 14, 33, 0.75);
+      background: rgba(17, 17, 17, 0.75);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius);
       padding: 1.5rem;
@@ -266,7 +278,7 @@
       color: var(--gold);
       font-size: 1.1rem;
       margin-bottom: 0.85rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      border-bottom: 1px solid var(--border-gold);
       padding-bottom: 0.5rem;
     }
 
@@ -287,7 +299,7 @@
     }
 
     .deadline-list li strong {
-      color: var(--gold-light);
+      color: var(--white);
     }
 
     /* Grid & Cards */
@@ -296,7 +308,7 @@
       justify-content: space-between;
       align-items: flex-end;
       margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      border-bottom: 1px solid var(--border-gold);
       padding-bottom: 0.75rem;
       flex-wrap: wrap;
       gap: 1rem;
@@ -304,7 +316,7 @@
 
     .section-header h2 {
       font-size: 1.65rem;
-      color: var(--white);
+      color: var(--gold);
     }
 
     .grid-3 {
@@ -323,6 +335,7 @@
 
     .card {
       background: var(--navy-card);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
@@ -334,8 +347,8 @@
 
     .card:hover {
       transform: translateY(-3px);
-      border-color: var(--gold);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     .badge {
@@ -346,23 +359,23 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       border-radius: 4px;
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--gold);
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       margin-bottom: 0.85rem;
       width: fit-content;
     }
 
     .badge-crimson {
-      background: rgba(139, 0, 0, 0.45);
-      color: #FCA5A5;
-      border-color: rgba(220, 38, 38, 0.45);
+      background: rgba(46, 14, 14, 0.85);
+      color: var(--gold);
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
     .card h3 {
       font-size: 1.25rem;
       margin-bottom: 0.65rem;
-      color: var(--white);
+      color: var(--gold);
     }
 
     .card p {
@@ -377,19 +390,24 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
-      background: rgba(5, 14, 33, 0.7);
+      background: rgba(17, 17, 17, 0.7);
       padding: 1rem 1.25rem;
       border-radius: var(--radius);
       border: 1px solid var(--border-gold);
     }
 
     .search-input, .select-input {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--white);
       padding: 0.65rem 1rem;
       border-radius: var(--radius);
       font-size: 0.95rem;
+    }
+
+    .search-input:focus, .select-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
     }
 
     .search-input {
@@ -411,6 +429,7 @@
 
     .thread-item {
       background: var(--navy-card);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius);
       padding: 1.25rem 1.5rem;
@@ -419,6 +438,11 @@
       align-items: center;
       gap: 1rem;
       flex-wrap: wrap;
+      transition: border-color 0.2s;
+    }
+
+    .thread-item:hover {
+      border-color: var(--border-hover);
     }
 
     .thread-meta {
@@ -431,7 +455,8 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(5, 14, 33, 0.85);
+      background: rgba(17, 17, 17, 0.85);
+      backdrop-filter: blur(6px);
       display: none;
       justify-content: center;
       align-items: center;
@@ -444,12 +469,13 @@
     }
 
     .modal {
-      background: var(--navy);
-      border: 1px solid var(--gold);
+      background: radial-gradient(circle at top, var(--navy) 0%, var(--navy-dark) 85%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: var(--radius-lg);
       max-width: 540px;
       width: 100%;
       padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     .form-group {
@@ -459,15 +485,15 @@
     .form-group label {
       display: block;
       font-size: 0.88rem;
-      color: var(--gold-light);
+      color: var(--gold);
       margin-bottom: 0.35rem;
       font-weight: 600;
     }
 
     .form-group input, .form-group textarea, .form-group select {
       width: 100%;
-      background: rgba(5, 14, 33, 0.8);
-      border: 1px solid var(--border-gold);
+      background: rgba(17, 17, 17, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--white);
       padding: 0.7rem;
       border-radius: var(--radius);
@@ -476,7 +502,8 @@
 
     /* Footer */
     footer {
-      background: var(--navy-dark);
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(10px);
       border-top: 1px solid var(--border-gold);
       padding: 2.5rem 2rem;
       margin-top: auto;
@@ -561,7 +588,7 @@
             <li><span>Research Committee Notification Here</span> <strong>Put a date here or pull a date</strong></li>
             <li><span>Experimental Event Proposals Here</span> <strong>Put a date here or pull a date</strong></li>
             <li><span>IRB Approval Submission Here</span> <strong>Put a date here or pull a date</strong></li>
-            <li><span>Annual LD Resolution Release</span> <strong>Put a date here or pull a date/strong></li>
+            <li><span>Annual LD Resolution Release</span> <strong>Put a date here or pull a date</strong></li>
           </ul>
         </div>
       </div>
@@ -575,8 +602,8 @@
           <div>
             <span class="badge"> important information here maybe???????</span>
             <h3>News block</h3>
-            <ptors yaddayadda here
-          </div>>
+            <p>tors yaddayadda here</p>
+          </div>
           <button class="btn-outline-light" onclick="switchTab('competition')">View Event Standards →</button>
         </article>
 
@@ -586,6 +613,7 @@
             <h3>National Forensic Journal (NFJ)</h3>
             <p>
              yaddayadda
+            </p>
           </div>
           <button class="btn-outline-light" onclick="switchTab('research')">Journal &amp; IRB Guidelines →</button>
         </article>
@@ -632,7 +660,7 @@
             <span class="badge badge-crimson">One-Person Policy Debate</span>
             <h3>Post here :P</h3>
             <p>
-              yaddayadda</strong>.
+              <strong>yaddayadda</strong>.
             </p>
             <p>
               <strong>Communication Emphasis:</strong> Rapid-fire "spread delivery" is antithetical to the event. Speeches must remain comprehensible and persuasive, with accurate, contextualized evidence. The annual resolution is announced every <strong>July 1</strong>.
