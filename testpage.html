@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Forensic Association | Search Archives</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Styles for the Text Document Viewer Modal & Folder Loader */
+    .folder-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-folder {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background-color: #8b0000;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .btn-folder:hover {
+      opacity: 0.9;
+    }
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .doc-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .doc-modal-backdrop.active {
+      display: flex;
+    }
+    .doc-modal {
+      background: #ffffff;
+      color: #1a1a1a;
+      width: 100%;
+      max-width: 850px;
+      max-height: 85vh;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+    .doc-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+      background: #f8f9fa;
+    }
+    .doc-modal-header h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+    .doc-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      color: #555;
+    }
+    .doc-modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      background: #fcfcfc;
+      flex: 1;
+    }
+    .doc-modal-footer {
+      padding: 0.75rem 1.5rem;
+      border-top: 1px solid #e0e0e0;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="utility-bar">
+    <div>
+      <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
+    </div>
+    <div>
+      <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
+      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
+      <a href="mailto:blah@gmail.com">Contact Editors</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="cropped-nfa-red-bubble.png" alt="NFA Crest" class="brand-logo" />
+        <div class="brand-text">
+          <span>Established 1971</span>
+          <strong>NATIONAL FORENSIC ASSOCIATION</strong>
+        </div>
+      </a>
+
+      <nav class="nav-tabs" aria-label="Primary Navigation">
+        <a href="home.html" class="tab-btn">Home</a>
+        <a href="competition.html" class="tab-btn">Competition &amp; LD</a>
+        <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
+        <a href="board.html" class="tab-btn">Message Board</a>
+        <a href="archives.html" class="tab-btn active">Search Archives</a>
+        <a href="tournament.html" class="tab-btn">Tournament</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Historical Records &amp; Governance</p>
+        <h2>Search NFA Archives (1971–Present)</h2>
+      </div>
+      <div class="folder-actions">
+        <!-- Allows opening the 'archives/' directory directly in the browser if directory listing is enabled -->
+        <a href="archives/" target="_blank" rel="noopener" class="btn-outline-light">Open arhvives/ Directory ↗</a>
+        
+        <!-- Allows loading all .txt files from the local 'archives' folder directly into the page -->
+        <label for="folder-upload" class="btn-folder">
+          📂 Load Text Docs from Folder
+        </label>
+        <input type="file" id="folder-upload" webkitdirectory directory multiple accept=".txt" style="display: none;" onchange="handleFolderSelect(event)" />
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="archive-search" class="search-input" placeholder="Search titles, descriptions, or text document content..." oninput="renderArchives()" />
+      <select id="archive-type" class="select-input" onchange="renderArchives()">
+        <option value="all">All Archive Types</option>
+        <option value="Governance">Governing Documents</option>
+        <option value="Journal">NFJ Articles (Vol. 39)</option>
+        <option value="History">Hall of Fame &amp; Champions</option>
+        <option value="Rules">Competition Rules</option>
+        <option value="Text Document">Loaded Text Docs</option>
+      </select>
+    </div>
+
+    <div id="archive-container" class="grid-3"></div>
+  </main>
+
+  <!-- Text Document Reader Modal -->
+  <div id="doc-modal-backdrop" class="doc-modal-backdrop" onclick="closeModalOnBackdrop(event)">
+    <div class="doc-modal" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">
+      <div class="doc-modal-header">
+        <h3 id="doc-modal-title">Document Viewer</h3>
+        <button class="doc-modal-close" onclick="closeDocModal()" aria-label="Close">&times;</button>
+      </div>
+      <div id="doc-modal-body" class="doc-modal-body">Loading text document...</div>
+      <div class="doc-modal-footer">
+        <span id="doc-modal-path"></span>
+        <a id="doc-modal-raw-link" href="#" target="_blank" rel="noopener">Open Raw .txt in New Tab ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
+      </div>
+      <div>
+        Designed to match the NFA Digital Archive &amp; Championship Portal
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Folder path matching your directory name ('archives
+/')
+    const FOLDER_PATH = 'archives/';
+
+    // Default archive entries pointing to .txt files inside 'arhvives/'
+    const archives = [
+      {
+        title: "NFA Constitution (Official Governing Document)",
+        type: "Governance",
+        year: "2023",
+        desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.",
+        url: `${FOLDER_PATH}nfa-constitution.txt`,
+        content: ""
+      },
+      {
+        title: "NFA Bylaws & Tournament Procedures",
+        type: "Governance",
+        year: "2023",
+        desc: "Complete rules on student eligibility, qualification criteria, section sizing, judge placement, and 1–30 rating scales.",
+        url: `${FOLDER_PATH}nfa-bylaws.txt`,
+        content: ""
+      },
+      {
+        title: "12. Lincoln-Douglas Debate Event Description",
+        type: "Rules",
+        year: "2022",
+        desc: "Official stock issues paradigm (Harms, Inherency, Solvency, Topicality), evidence verification rules, and delivery standards.",
+        url: `${FOLDER_PATH}ld-description.txt`,
+        content: ""
+      },
+      {
+        title: "NFA Hall of Fame Inductees Archive (1971–Present)",
+        type: "History",
+        year: "1971–2026",
+        desc: "Historical roster of Hall of Fame members and annual January 15 nomination guidelines.",
+        url: `${FOLDER_PATH}hall-of-fame.txt`,
+        content: ""
+      },
+      {
+        title: "Cultivating Success: Exploring Mentorship in Collegiate Speech & Debate",
+        type: "Journal",
+        year: "2026",
+        desc: "By Vanessa Fowler — Published in National Forensic Journal, Volume 39 (2026).",
+        url: `${FOLDER_PATH}cultivating-success.txt`,
+        content: ""
+      },
+      {
+        title: "Aligning Vision: Issues Facing Disability Accommodation in the Forensics Space",
+        type: "Journal",
+        year: "2026",
+        desc: "By Ryan Corcoran — Special Forum on Accessibility in Collegiate Forensics, NFJ Volume 39.",
+        url: `${FOLDER_PATH}aligning-vision.txt`,
+        content: ""
+      }
+    ];
+
+    // Pre-fetch text content if served over HTTP/HTTPS so full-text search works automatically
+    async function preloadTextFiles() {
+      for (const item of archives) {
+        if (item.url && item.url.endsWith('.txt') && !item.content) {
+          try {
+            const res = await fetch(item.url);
+            if (res.ok) {
+              item.content = await res.text();
+            }
+          } catch (err) {
+            // Silently ignore if opened via file:// protocol where fetch is blocked by CORS
+          }
+        }
+      }
+    }
+
+    // Load all .txt files dynamically when user selects the 'arhvives' folder
+    async function handleFolderSelect(event) {
+      const files = Array.from(event.target.files).filter(file =>
+        file.name.toLowerCase().endsWith('.txt')
+      );
+
+      if (files.length === 0) {
+        alert('No .txt files were found in the selected folder.');
+        return;
+      }
+
+      const loadedDocs = [];
+      for (const file of files) {
+        const text = await file.text();
+        const cleanTitle = file.name.replace(/\.txt$/i, '').replace(/[-_]/g, ' ');
+        const firstLinePreview = text.trim().split('\n')[0]?.slice(0, 160) || 'Text document loaded from local folder.';
+        const blobUrl = URL.createObjectURL(file);
+
+        loadedDocs.push({
+          title: cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1),
+          type: "Text Document",
+          year: new Date(file.lastModified).getFullYear().toString(),
+          desc: firstLinePreview + (firstLinePreview.length >= 160 ? '...' : ''),
+          url: blobUrl,
+          filePath: file.webkitRelativePath || `${FOLDER_PATH}${file.name}`,
+          content: text
+        });
+      }
+
+      // Replace or append loaded text files and re-render
+      archives.splice(0, archives.length, ...loadedDocs);
+      renderArchives();
+    }
+
+    function renderArchives() {
+      const q = document.getElementById('archive-search').value.toLowerCase();
+      const type = document.getElementById('archive-type').value;
+      const container = document.getElementById('archive-container');
+
+      const filtered = archives.filter(a =>
+        (type === 'all' || a.type === type) &&
+        (
+          a.title.toLowerCase().includes(q) ||
+          a.desc.toLowerCase().includes(q) ||
+          a.year.toLowerCase().includes(q) ||
+          (a.content && a.content.toLowerCase().includes(q))
+        )
+      );
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1 / -1; opacity: 0.8;">No matching text documents found in <code>${FOLDER_PATH}</code>.</p>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map((a, idx) => {
+        const originalIndex = archives.indexOf(a);
+        return `
+          <article class="card">
+            <div>
+              <span class="badge">${a.type} • ${a.year}</span>
+              <h3>${a.title}</h3>
+              <p>${a.desc}</p>
+            </div>
+            <div class="card-actions">
+              <button type="button" onclick="openDocModal(${originalIndex})" class="btn-outline-light" style="cursor: pointer;">
+                Read Text Doc →
+              </button>
+              <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">
+                Open Raw .txt ↗
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function openDocModal(index) {
+      const item = archives[index];
+      const backdrop = document.getElementById('doc-modal-backdrop');
+      const titleEl = document.getElementById('doc-modal-title');
+      const bodyEl = document.getElementById('doc-modal-body');
+      const pathEl = document.getElementById('doc-modal-path');
+      const rawLinkEl = document.getElementById('doc-modal-raw-link');
+
+      titleEl.textContent = item.title;
+      pathEl.textContent = item.filePath || item.url;
+      rawLinkEl.href = item.url;
+      bodyEl.textContent = 'Loading document...';
+      backdrop.classList.add('active');
+
+      if (item.content) {
+        bodyEl.textContent = item.content;
+        return;
+      }
+
+      try {
+        const response = await fetch(item.url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        item.content = text;
+        bodyEl.textContent = text;
+      } catch (err) {
+        bodyEl.textContent =
+          `Could not automatically fetch "${item.url}".\n\n` +
+          `• Make sure the file exists inside your "${FOLDER_PATH}" folder.\n` +
+          `• If you opened archives.html directly from your hard drive (file://), use the "📂 Load Text Docs from Folder" button at the top right to select your "${FOLDER_PATH.replace('/', '')}" folder, or click "Open Raw .txt in New Tab" below.`;
+      }
+    }
+
+    function closeDocModal() {
+      document.getElementById('doc-modal-backdrop').classList.remove('active');
+    }
+
+    function closeModalOnBackdrop(event) {
+      if (event.target.id === 'doc-modal-backdrop') {
+        closeDocModal();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderArchives();
+      preloadTextFiles();
+    });
+  </script>
+
+</body>
+</html>
