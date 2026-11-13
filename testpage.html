@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,99 +7,87 @@
   <title>National Forensic Association | Search Archives</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Styles for the Text Document Viewer Modal & Folder Loader */
-    .folder-actions {
+    /* Styling for the Local Folder Loader & Text Document Viewer Modal */
+    .folder-loader-bar {
       display: flex;
-      gap: 0.75rem;
-      align-items: center;
       flex-wrap: wrap;
-    }
-    .btn-folder {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1rem;
-      background-color: #8b0000;
-      color: #ffffff;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.9rem;
-      text-decoration: none;
+      justify-content: space-between;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
     }
-    .btn-folder:hover {
+    .folder-btn {
+      cursor: pointer;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #8b0000;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .folder-btn:hover {
       opacity: 0.9;
     }
     .card-actions {
       display: flex;
       gap: 0.5rem;
-      margin-top: 1rem;
       flex-wrap: wrap;
+      margin-top: 1rem;
     }
-    .doc-modal-backdrop {
+    .doc-modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
+      z-index: 9999;
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
     }
-    .doc-modal-backdrop.active {
+    .doc-modal.active {
       display: flex;
     }
-    .doc-modal {
-      background: #ffffff;
-      color: #1a1a1a;
+    .doc-modal-content {
+      background: #fff;
+      color: #111;
       width: 100%;
-      max-width: 850px;
+      max-width: 800px;
       max-height: 85vh;
       border-radius: 8px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .doc-modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 1.5rem;
-      border-bottom: 1px solid #e0e0e0;
-      background: #f8f9fa;
-    }
-    .doc-modal-header h3 {
-      margin: 0;
-      font-size: 1.15rem;
-    }
-    .doc-modal-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      line-height: 1;
-      cursor: pointer;
-      color: #555;
+      border-bottom: 1px solid #ddd;
+      background: #f7f7f7;
     }
     .doc-modal-body {
       padding: 1.5rem;
       overflow-y: auto;
       white-space: pre-wrap;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      background: #fcfcfc;
-      flex: 1;
+      font-family: monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      background: #fafafa;
     }
-    .doc-modal-footer {
-      padding: 0.75rem 1.5rem;
-      border-top: 1px solid #e0e0e0;
-      background: #f8f9fa;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
+    .close-modal-btn {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -142,45 +131,43 @@
         <p class="eyebrow">Historical Records &amp; Governance</p>
         <h2>Search NFA Archives (1971–Present)</h2>
       </div>
-      <div class="folder-actions">
-        <!-- Allows opening the 'archives/' directory directly in the browser if directory listing is enabled -->
-        <a href="archives/" target="_blank" rel="noopener" class="btn-outline-light">Open arhvives/ Directory ↗</a>
-        
-        <!-- Allows loading all .txt files from the local 'archives' folder directly into the page -->
-        <label for="folder-upload" class="btn-folder">
-          📂 Load Text Docs from Folder
-        </label>
-        <input type="file" id="folder-upload" webkitdirectory directory multiple accept=".txt" style="display: none;" onchange="handleFolderSelect(event)" />
+    </div>
+
+    <!-- Local Directory Picker for the "archives" folder -->
+    <div class="folder-loader-bar">
+      <div>
+        <strong>Local Text Directory (<code>archives/</code>):</strong>
+        <span id="folder-status">Load your local <code>archives</code> folder to automatically import all <code>.txt</code> documents, or click any listed document below.</span>
+      </div>
+      <div>
+        <label for="dir-input" class="folder-btn">📂 Open "archives" Folder (.txt)</label>
+        <input type="file" id="dir-input" webkitdirectory directory multiple style="display: none;" onchange="handleFolderSelect(event)" />
       </div>
     </div>
 
     <div class="filter-bar">
-      <input type="text" id="archive-search" class="search-input" placeholder="Search titles, descriptions, or text document content..." oninput="renderArchives()" />
+      <input type="text" id="archive-search" class="search-input" placeholder="Search Bylaws, Hall of Fame, NFJ Volume 39, or full .txt contents..." oninput="renderArchives()" />
       <select id="archive-type" class="select-input" onchange="renderArchives()">
         <option value="all">All Archive Types</option>
         <option value="Governance">Governing Documents</option>
         <option value="Journal">NFJ Articles (Vol. 39)</option>
         <option value="History">Hall of Fame &amp; Champions</option>
         <option value="Rules">Competition Rules</option>
-        <option value="Text Document">Loaded Text Docs</option>
+        <option value="Text Archive">Local Text Docs (arhvives/)</option>
       </select>
     </div>
 
     <div id="archive-container" class="grid-3"></div>
   </main>
 
-  <!-- Text Document Reader Modal -->
-  <div id="doc-modal-backdrop" class="doc-modal-backdrop" onclick="closeModalOnBackdrop(event)">
-    <div class="doc-modal" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">
+  <!-- Modal for viewing .txt file contents directly on the page -->
+  <div id="doc-modal" class="doc-modal" onclick="if(event.target === this) closeModal()">
+    <div class="doc-modal-content">
       <div class="doc-modal-header">
-        <h3 id="doc-modal-title">Document Viewer</h3>
-        <button class="doc-modal-close" onclick="closeDocModal()" aria-label="Close">&times;</button>
+        <strong id="modal-title">Document Viewer</strong>
+        <button class="close-modal-btn" onclick="closeModal()">✕ Close</button>
       </div>
-      <div id="doc-modal-body" class="doc-modal-body">Loading text document...</div>
-      <div class="doc-modal-footer">
-        <span id="doc-modal-path"></span>
-        <a id="doc-modal-raw-link" href="#" target="_blank" rel="noopener">Open Raw .txt in New Tab ↗</a>
-      </div>
+      <div id="modal-body" class="doc-modal-body">Loading document...</div>
     </div>
   </div>
 
@@ -196,201 +183,155 @@
   </footer>
 
   <script>
-    // Folder path matching your directory name ('archives
-/')
-    const FOLDER_PATH = 'archives/';
+    // Folder name set to "arhvives" as requested (change to "archives" if you rename the folder)
+    const ARCHIVE_FOLDER = "arhvives";
 
-    // Default archive entries pointing to .txt files inside 'arhvives/'
     const archives = [
       {
         title: "NFA Constitution (Official Governing Document)",
         type: "Governance",
         year: "2023",
         desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.",
-        url: `${FOLDER_PATH}nfa-constitution.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/nfa-constitution.txt`
       },
       {
         title: "NFA Bylaws & Tournament Procedures",
         type: "Governance",
         year: "2023",
         desc: "Complete rules on student eligibility, qualification criteria, section sizing, judge placement, and 1–30 rating scales.",
-        url: `${FOLDER_PATH}nfa-bylaws.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/nfa-bylaws.txt`
       },
       {
         title: "12. Lincoln-Douglas Debate Event Description",
         type: "Rules",
         year: "2022",
         desc: "Official stock issues paradigm (Harms, Inherency, Solvency, Topicality), evidence verification rules, and delivery standards.",
-        url: `${FOLDER_PATH}ld-description.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/ld-description.txt`
       },
       {
         title: "NFA Hall of Fame Inductees Archive (1971–Present)",
         type: "History",
         year: "1971–2026",
         desc: "Historical roster of Hall of Fame members and annual January 15 nomination guidelines.",
-        url: `${FOLDER_PATH}hall-of-fame.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/hall-of-fame.txt`
       },
       {
         title: "Cultivating Success: Exploring Mentorship in Collegiate Speech & Debate",
         type: "Journal",
         year: "2026",
         desc: "By Vanessa Fowler — Published in National Forensic Journal, Volume 39 (2026).",
-        url: `${FOLDER_PATH}cultivating-success.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/cultivating-success-fowler.txt`
       },
       {
         title: "Aligning Vision: Issues Facing Disability Accommodation in the Forensics Space",
         type: "Journal",
         year: "2026",
         desc: "By Ryan Corcoran — Special Forum on Accessibility in Collegiate Forensics, NFJ Volume 39.",
-        url: `${FOLDER_PATH}aligning-vision.txt`,
-        content: ""
+        url: `${ARCHIVE_FOLDER}/aligning-vision-corcoran.txt`
       }
     ];
 
-    // Pre-fetch text content if served over HTTP/HTTPS so full-text search works automatically
-    async function preloadTextFiles() {
-      for (const item of archives) {
-        if (item.url && item.url.endsWith('.txt') && !item.content) {
-          try {
-            const res = await fetch(item.url);
-            if (res.ok) {
-              item.content = await res.text();
-            }
-          } catch (err) {
-            // Silently ignore if opened via file:// protocol where fetch is blocked by CORS
-          }
-        }
-      }
-    }
-
-    // Load all .txt files dynamically when user selects the 'arhvives' folder
+    // Automatically reads all .txt files when the user selects the "arhvives" directory
     async function handleFolderSelect(event) {
       const files = Array.from(event.target.files).filter(file =>
         file.name.toLowerCase().endsWith('.txt')
       );
 
       if (files.length === 0) {
-        alert('No .txt files were found in the selected folder.');
+        document.getElementById('folder-status').textContent = 'No .txt files found in the selected folder.';
         return;
       }
 
-      const loadedDocs = [];
       for (const file of files) {
-        const text = await file.text();
-        const cleanTitle = file.name.replace(/\.txt$/i, '').replace(/[-_]/g, ' ');
-        const firstLinePreview = text.trim().split('\n')[0]?.slice(0, 160) || 'Text document loaded from local folder.';
+        const textContent = await file.text();
         const blobUrl = URL.createObjectURL(file);
+        const cleanTitle = file.name.replace(/\.txt$/i, '').replace(/[-_]/g, ' ');
+        const snippet = textContent.trim().slice(0, 160) + (textContent.length > 160 ? '...' : '');
 
-        loadedDocs.push({
-          title: cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1),
-          type: "Text Document",
+        archives.unshift({
+          title: cleanTitle,
+          type: "Text Archive",
           year: new Date(file.lastModified).getFullYear().toString(),
-          desc: firstLinePreview + (firstLinePreview.length >= 160 ? '...' : ''),
+          desc: snippet || "Text document from local arhvives folder.",
           url: blobUrl,
-          filePath: file.webkitRelativePath || `${FOLDER_PATH}${file.name}`,
-          content: text
+          rawText: textContent,
+          fileName: file.name
         });
       }
 
-      // Replace or append loaded text files and re-render
-      archives.splice(0, archives.length, ...loadedDocs);
+      document.getElementById('folder-status').innerHTML = `Loaded <strong>${files.length}</strong> text document(s) from <code>${ARCHIVE_FOLDER}/</code>.`;
       renderArchives();
     }
+
+    // Opens a .txt document inside the on-page modal viewer
+    async function viewTextDoc(index) {
+      const item = currentFiltered[index];
+      const modal = document.getElementById('doc-modal');
+      const titleEl = document.getElementById('modal-title');
+      const bodyEl = document.getElementById('modal-body');
+
+      titleEl.textContent = item.title;
+      bodyEl.textContent = "Loading text document from " + item.url + "...";
+      modal.classList.add('active');
+
+      // If loaded via the folder picker, we already have the raw text in memory
+      if (item.rawText !== undefined) {
+        bodyEl.textContent = item.rawText;
+        return;
+      }
+
+      // Otherwise fetch the .txt file from the "arhvives/" relative path
+      try {
+        const response = await fetch(item.url);
+        if (!response.ok) throw new Error(`HTTP ${response.status} - File not found at ${item.url}`);
+        const text = await response.text();
+        bodyEl.textContent = text;
+      } catch (err) {
+        bodyEl.textContent = `Could not auto-fetch "${item.url}".\n\nTip: Make sure the file exists inside the "${ARCHIVE_FOLDER}/" folder next to archives.html, or use the "Open arhvives Folder (.txt)" button at the top of the page to load local files without a web server.\n\nDetails: ${err.message}`;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('doc-modal').classList.remove('active');
+    }
+
+    let currentFiltered = [];
 
     function renderArchives() {
       const q = document.getElementById('archive-search').value.toLowerCase();
       const type = document.getElementById('archive-type').value;
       const container = document.getElementById('archive-container');
 
-      const filtered = archives.filter(a =>
+      currentFiltered = archives.filter(a =>
         (type === 'all' || a.type === type) &&
         (
           a.title.toLowerCase().includes(q) ||
           a.desc.toLowerCase().includes(q) ||
           a.year.toLowerCase().includes(q) ||
-          (a.content && a.content.toLowerCase().includes(q))
+          (a.rawText && a.rawText.toLowerCase().includes(q))
         )
       );
 
-      if (filtered.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1 / -1; opacity: 0.8;">No matching text documents found in <code>${FOLDER_PATH}</code>.</p>`;
-        return;
-      }
-
-      container.innerHTML = filtered.map((a, idx) => {
-        const originalIndex = archives.indexOf(a);
-        return `
-          <article class="card">
-            <div>
-              <span class="badge">${a.type} • ${a.year}</span>
-              <h3>${a.title}</h3>
-              <p>${a.desc}</p>
-            </div>
-            <div class="card-actions">
-              <button type="button" onclick="openDocModal(${originalIndex})" class="btn-outline-light" style="cursor: pointer;">
-                Read Text Doc →
-              </button>
-              <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">
-                Open Raw .txt ↗
-              </a>
-            </div>
-          </article>
-        `;
-      }).join('');
+      container.innerHTML = currentFiltered.map((a, idx) => `
+        <article class="card">
+          <div>
+            <span class="badge">${a.type} • ${a.year}</span>
+            <h3>${a.title}</h3>
+            <p>${a.desc}</p>
+          </div>
+          <div class="card-actions">
+            <button type="button" onclick="viewTextDoc(${idx})" class="btn-outline-light" style="cursor:pointer;">
+              Read Text Doc
+            </button>
+            <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">
+              Open Raw .txt →
+            </a>
+          </div>
+        </article>
+      `).join('');
     }
 
-    async function openDocModal(index) {
-      const item = archives[index];
-      const backdrop = document.getElementById('doc-modal-backdrop');
-      const titleEl = document.getElementById('doc-modal-title');
-      const bodyEl = document.getElementById('doc-modal-body');
-      const pathEl = document.getElementById('doc-modal-path');
-      const rawLinkEl = document.getElementById('doc-modal-raw-link');
-
-      titleEl.textContent = item.title;
-      pathEl.textContent = item.filePath || item.url;
-      rawLinkEl.href = item.url;
-      bodyEl.textContent = 'Loading document...';
-      backdrop.classList.add('active');
-
-      if (item.content) {
-        bodyEl.textContent = item.content;
-        return;
-      }
-
-      try {
-        const response = await fetch(item.url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const text = await response.text();
-        item.content = text;
-        bodyEl.textContent = text;
-      } catch (err) {
-        bodyEl.textContent =
-          `Could not automatically fetch "${item.url}".\n\n` +
-          `• Make sure the file exists inside your "${FOLDER_PATH}" folder.\n` +
-          `• If you opened archives.html directly from your hard drive (file://), use the "📂 Load Text Docs from Folder" button at the top right to select your "${FOLDER_PATH.replace('/', '')}" folder, or click "Open Raw .txt in New Tab" below.`;
-      }
-    }
-
-    function closeDocModal() {
-      document.getElementById('doc-modal-backdrop').classList.remove('active');
-    }
-
-    function closeModalOnBackdrop(event) {
-      if (event.target.id === 'doc-modal-backdrop') {
-        closeDocModal();
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderArchives();
-      preloadTextFiles();
-    });
+    window.addEventListener('DOMContentLoaded', renderArchives);
   </script>
 
 </body>
