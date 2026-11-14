@@ -485,4 +485,143 @@ footer {
   .hero-banner {
     grid-template-columns: 1fr;
   }
+  .document-grid {
+    grid-template-columns: 1fr;
+  }
 }
+/* About 
+
+  Page 
+
+  Stuff*/
+.topic-sidebar a:link,
+.topic-sidebar a:visited {
+  color: white;
+   font-size: 1.4rem;
+   font-weight:bold;
+   font-family: 'Georgia', serif;
+}
+
+.topic-sidebar summary {
+  font-size: 1.65rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  font-family: 'Georgia', serif;
+}
+
+.topic-sidebar li + li {
+  margin-top: 1rem;
+}
+
+.topic-sidebar {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.about-content p {
+  text-indent: 4em; 
+}
+
+.about-content p + p {
+  margin-top: 1rem; 
+}
+
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  max-width: 2000px;
+  margin: 2rem auto 2rem;
+}
+
+.document-grid iframe {
+  display: block;
+  width: 100%;
+  height: 500px;
+  border: 2px solid var(--border-gold);
+}
+
+.document-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.document-links a:first-child {
+  color: var(--white);
+}
+
+.about-content > section {
+  padding-bottom: 1rem; 
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  margin-bottom: 1.5rem; 
+}
+
+.membership-section {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.council-table-wrap {
+  margin-top: 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius);
+}
+
+.council-table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  background: var(--navy);
+}
+
+.council-table th,
+.council-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.council-table th {
+  background: var(--navy-dark);
+  color: var(--gold-light);
+}
+
+.council-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.about-content .pNo-indent {
+  text-indent: 0;
+  margin-bottom: 1rem; 
+}
+
+.about-content h3 {
+  margin-top: 1.5rem;     
+  margin-bottom: 1.5rem;
+}
+
+.election-list {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-top: 1.5rem;
+}
+
+.election-list li + li {
+  margin-top: 0.25rem;
+}
+
+.survey-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
