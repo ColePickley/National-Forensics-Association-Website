@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' mailto:;" />
+  <title>Contact Us | National Forensic Association</title>
+  <style>
+    :root {
+      /* Mapped directly from home.html & index.html's color palette */
+      --navy: #2e0e0e;
+      --navy-dark: #111111;
+      --navy-card: rgba(17, 17, 17, 0.65);
+      --crimson: #2e0e0e;
+      --crimson-light: #4a1717;
+      --gold: #f5f5f5;
+      --gold-light: #ffffff;
+      --white: #ffffff;
+      --slate: rgba(255, 255, 255, 0.85);
+      --slate-muted: rgba(255, 255, 255, 0.65);
+      --border-gold: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.35);
+      --radius: 8px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at center, var(--navy) 0%, var(--navy-dark) 70%);
+      background-attachment: fixed;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Georgia', serif;
+      color: var(--gold);
+    }
+
+    /* Top bar */
+    .utility-bar {
+      background: linear-gradient(90deg, var(--crimson) 0%, var(--navy-dark) 100%);
+      color: var(--white);
+      font-size: 0.85rem;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-gold);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .utility-bar a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    .utility-bar a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /* Main Header & Navigation */
+    header {
+      background: rgba(17, 17, 17, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--slate-muted);
+      font-weight: 700;
+    }
+
+    .brand-text strong {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--white);
+      opacity: 0.7;
+      border: 1px solid transparent;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .tab-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Buttons */
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy-dark);
+      border: 1px solid var(--white);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-gold:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-outline-light {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.7rem 1.35rem;
+      font-size: 0.92rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-outline-light:hover {
+      border-color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Main Layout */
+    main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.25rem 2rem 4rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: radial-gradient(circle at right top, rgba(46, 14, 14, 0.85), rgba(17, 17, 17, 0.92)),
+                  linear-gradient(135deg, rgba(46, 14, 14, 0.5), rgba(17, 17, 17, 0.95));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem 2.5rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--slate-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-banner h1 {
+      font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+      color: var(--gold);
+    }
+
+    .hero-banner p {
+      color: var(--slate);
+      font-size: 1.02rem;
+      max-width: 640px;
+    }
+
+    .hero-graphic-box {
+      background: rgba(17, 17, 17, 0.75);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-graphic-box svg {
+      width: 100%;
+      max-width: 320px;
+      height: 135px;
+      display: block;
+    }
+
+    /* Layout Grids */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.75rem;
+      margin-bottom: 2.75rem;
+      align-items: start;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-gold);
+      padding-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.65rem;
+      color: var(--gold);
+    }
+
+    .card {
+      background: var(--navy-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--gold);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 0.85rem;
+      width: fit-content;
+    }
+
+    .badge-crimson {
+      background: rgba(46, 14, 14, 0.85);
+      color: var(--gold);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .card h2, .card h3 {
+      margin-bottom: 0.65rem;
+      color: var(--gold);
+    }
+
+    .card p {
+      color: var(--slate);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Contact Form Styling */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .required-mark {
+      color: #e57373;
+      margin-left: 3px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(17, 17, 17, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      padding: 0.75rem 0.95rem;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 0 0 3px rgba(74, 23, 23, 0.45);
+    }
+
+    .form-group select option {
+      background: var(--navy-dark);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      min-height: 145px;
+      resize: vertical;
+    }
+
+    /* Form Validation & Confirmation States (Matching original WP/Gravity Forms feedback) */
+    .form-feedback {
+      display: none;
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .form-feedback.error {
+      display: block;
+      background: rgba(120, 20, 20, 0.45);
+      border: 1px solid rgba(255, 130, 130, 0.45);
+      color: #ffd6d6;
+    }
+
+    .form-feedback.success {
+      display: block;
+      background: rgba(46, 14, 14, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: var(--white);
+    }
+
+    .success-card {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: radial-gradient(circle at top, rgba(74, 23, 23, 0.55), rgba(17, 17, 17, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-lg);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .success-card.visible {
+      display: block;
+    }
+
+    /* Social Media Cards (Self-Contained Inline SVG Brand Graphics) */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-card {
+      background: rgba(17, 17, 17, 0.78);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 1.15rem;
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .social-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      background: linear-gradient(135deg, rgba(74, 23, 23, 0.55) 0%, rgba(17, 17, 17, 0.95) 100%);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+    }
+
+    .social-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(74, 23, 23, 0.8), rgba(17, 17, 17, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .social-icon-wrap svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--gold);
+    }
+
+    .social-meta strong {
+      display: block;
+      font-family: 'Georgia', serif;
+      font-size: 1.02rem;
+      color: var(--gold);
+      margin-bottom: 0.1rem;
+    }
+
+    .social-meta span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--slate-muted);
+    }
+
+    /* Direct Department Directory */
+    .directory-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .directory-item {
+      background: rgba(17, 17, 17, 0.72);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .directory-item strong {
+      display: block;
+      color: var(--gold);
+      font-size: 0.98rem;
+    }
+
+    .directory-item span {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--slate-muted);
+    }
+
+    .directory-item a {
+      color: var(--gold);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
+      padding-bottom: 2px;
+    }
+
+    .directory-item a:hover {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-gold);
+      padding: 2.5rem 2rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      color: var(--slate-muted);
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero-banner,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .form-row,
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="utility-bar">
+    <div>
+      <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
+    </div>
+    <div>
+      <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
+      <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer">Official NFA Portal</a> &nbsp;|&nbsp;
+      <a href="contact.html">Contact Our Team</a>
+    </div>
+  </div>
+
+  <!-- Main Header & Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="cropped-nfa-red-bubble.png" alt="NFA Crest" class="brand-logo" />
+        <div class="brand-text">
+          <span>Established 1971</span>
+          <strong>NATIONAL FORENSIC ASSOCIATION</strong>
+        </div>
+      </a>
+
+      <nav class="nav-tabs" aria-label="Primary Navigation">
+        <a href="home.html?tab=home" class="tab-btn">Home</a>
+        <a href="home.html?tab=competition" class="tab-btn">Competition &amp; LD</a>
+        <a href="research.html" class="tab-btn">Research</a>
+        <a href="home.html?tab=board" class="tab-btn">Message Board</a>
+        <a href="archives.html" class="tab-btn">Search Archives</a>
+        <a href="tournament.html" class="tab-btn">Tournament</a>
+        <a href="contact.html" class="tab-btn active" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div>
+        <p class="eyebrow">Member Support &amp; Communications</p>
+        <h1>Get in Touch with the National Forensic Association</h1>
+        <p>
+          Have questions regarding tournament entries, membership, Lincoln-Douglas debate, <em>National Forensic Journal</em> submissions, or National Council governance? Send our team a direct message or connect with the NFA across our official social channels.
+        </p>
+      </div>
+
+      <div class="hero-graphic-box" aria-hidden="true">
+        <svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <pattern id="contact-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+              <path d="M 18 0 L 0 0 0 18" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="360" height="140" fill="url(#contact-grid)"/>
+          <!-- Outer Concentric Signal Rings -->
+          <circle cx="180" cy="70" r="54" fill="rgba(46,14,14,0.6)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+          <circle cx="180" cy="70" r="40" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Sealed Letter / Dispatch Motif -->
+          <rect x="134" y="45" width="92" height="54" rx="6" fill="#161616" stroke="#f5f5f5" stroke-width="2"/>
+          <polyline points="136,48 180,77 224,48" fill="none" stroke="#f5f5f5" stroke-width="2" stroke-linejoin="round"/>
+          <!-- Crest Seal Dot -->
+          <circle cx="180" cy="76" r="6" fill="#4a1717" stroke="#f5f5f5" stroke-width="1.5"/>
+          <!-- Side Transmission Lines -->
+          <line x1="42" y1="70" x2="112" y2="70" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <line x1="248" y1="70" x2="318" y2="70" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Main Two-Column Contact Section -->
+    <div class="contact-grid">
+      <!-- Left Column: Interactive Contact Form -->
+      <section class="card" aria-labelledby="contact-form-heading">
+        <span class="badge">Direct Inquiry</span>
+        <h2 id="contact-form-heading">Send Us a Message</h2>
+        <p>
+          Complete the form below and your inquiry will be routed to the appropriate NFA officer or committee representative. Fields marked with <span class="required-mark">*</span> are required.
+        </p>
+
+        <div id="form-error-banner" class="form-feedback error" role="alert">
+          Please fill out the form correctly. Ensure your name, a valid email address, and your message are included.
+        </div>
+
+        <form id="nfa-contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Name <span class="required-mark">*</span></label>
+              <input type="text" id="contact-name" name="name" placeholder="Full Name" required autocomplete="name" />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email">Email <span class="required-mark">*</span></label>
+              <input type="email" id="contact-email" name="email" placeholder="you@institution.edu" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-school">Institution / Affiliation (Optional)</label>
+              <input type="text" id="contact-school" name="institution" placeholder="e.g., Illinois Central College" autocomplete="organization" />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-topic">Routing Department</label>
+              <select id="contact-topic" name="topic">
+                <option value="General Inquiry">General NFA Inquiry</option>
+                <option value="National Championship Tournament">National Championship Tournament</option>
+                <option value="National Forensic Journal (NFJ)">National Forensic Journal (NFJ)</option>
+                <option value="Research & IRB Proposals">Research &amp; IRB Proposals</option>
+                <option value="Lincoln-Douglas Debate">Lincoln-Douglas Policy Debate</option>
+                <option value="Membership, Ballots & Governance">Membership, Ballots &amp; Governance</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message <span class="required-mark">*</span></label>
+            <textarea id="contact-message" name="message" placeholder="Write your question, tournament inquiry, or feedback here..." required></textarea>
+          </div>
+
+          <div style="display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center;">
+            <button type="submit" class="btn-gold">Submit Message</button>
+            <a id="mailto-fallback" href="mailto:nfatournamentcommittee@gmail.com?subject=NFA%20Website%20Inquiry" class="btn-outline-light">Open in Email Client →</a>
+          </div>
+        </form>
+
+        <!-- Post-Submission Confirmation View -->
+        <div id="contact-success-card" class="success-card" role="status" aria-live="polite">
+          <span class="badge badge-crimson" style="margin: 0 auto 1rem;">Message Logged</span>
+          <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem;">Thank you for your response. ✨</h3>
+          <p id="confirmation-summary" style="max-width: 480px; margin: 0 auto 1.5rem;"></p>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn-outline-light" onclick="resetContactForm()">← Back to Contact Form</button>
+            <a id="send-email-copy" href="mailto:nfatournamentcommittee@gmail.com" class="btn-gold">Send Direct Email Copy →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Social Media Channels & Direct Contacts -->
+      <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+        <!-- Social Media Channels Card -->
+        <section class="card" aria-labelledby="social-heading">
+          <span class="badge badge-crimson">Official Channels</span>
+          <h2 id="social-heading">Connect on Social Media</h2>
+          <p>
+            Follow the National Forensic Association for championship tournament announcements, live round updates, hall of fame spotlights, and video archives.
+          </p>
+
+          <div class="social-grid">
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/NationalForensicAssociation/" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Facebook">
+              <div class="social-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/>
+                </svg>
+              </div>
+              <div class="social-meta">
+                <strong>Facebook</strong>
+                <span>Community &amp; Announcements</span>
+              </div>
+            </a>
+
+            <!-- Twitter / X -->
+            <a href="https://twitter.com/NFAForensics" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Twitter / X">
+              <div class="social-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </div>
+              <div class="social-meta">
+                <strong>Twitter / X</strong>
+                <span>@NFAForensics Updates</span>
+              </div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/nfaforensics/" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Instagram">
+              <div class="social-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </div>
+              <div class="social-meta">
+                <strong>Instagram</strong>
+                <span>@nfaforensics Photos &amp; Reels</span>
+              </div>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@NFAForensics" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on YouTube">
+              <div class="social-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </div>
+              <div class="social-meta">
+                <strong>YouTube</strong>
+                <span>Final Rounds &amp; Webinars</span>
+              </div>
+            </a>
+          </div>
+
+          <a href="https://nationalforensicassociation.org/contact/" target="_blank" rel="noopener noreferrer" class="btn-outline-light" style="width: 100%;">
+            View Official NFA Contact Directory →
+          </a>
+        </section>
+
+        <!-- Direct Committee Email Contacts -->
+        <section class="card" aria-labelledby="directory-heading">
+          <span class="badge">Direct Routing</span>
+          <h3 id="directory-heading" style="font-size: 1.25rem;">Key Committee Contacts</h3>
+          <ul class="directory-list">
+            <li class="directory-item">
+              <div>
+                <strong>Tournament Committee</strong>
+                <span>Entries, SpeechWire, Judging &amp; Schedule</span>
+              </div>
+              <a href="mailto:nfatournamentcommittee@gmail.com">nfatournamentcommittee@gmail.com</a>
+            </li>
+            <li class="directory-item">
+              <div>
+                <strong>National Forensic Journal</strong>
+                <span>Dr. Justin Rudnick, Editor (ISSN 0749-1042)</span>
+              </div>
+              <a href="mailto:nfajournal@gmail.com">nfajournal@gmail.com</a>
+            </li>
+            <li class="directory-item">
+              <div>
+                <strong>Professional Relations &amp; Research</strong>
+                <span>Dr. Nikki Freeman, VP of Professional Relations</span>
+              </div>
+              <a href="research.html">Research &amp; IRB Guidelines →</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
+      </div>
+      <div>
+        Self-Contained Secure Portal • NFA Digital Archive &amp; Championship Hub
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const contactForm = document.getElementById('nfa-contact-form');
+    const errorBanner = document.getElementById('form-error-banner');
+    const successCard = document.getElementById('contact-success-card');
+    const confirmationSummary = document.getElementById('confirmation-summary');
+    const sendEmailCopy = document.getElementById('send-email-copy');
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const school = document.getElementById('contact-school').value.trim();
+      const topic = document.getElementById('contact-topic').value;
+      const message = document.getElementById('contact-message').value.trim();
+
+      if (!name || !isValidEmail(email) || !message) {
+        errorBanner.classList.add('error');
+        errorBanner.style.display = 'block';
+        return;
+      }
+
+      errorBanner.style.display = 'none';
+
+      // Determine appropriate recipient based on routing selection
+      const targetEmail = topic === 'National Forensic Journal (NFJ)'
+        ? 'nfajournal@gmail.com'
+        : 'nfatournamentcommittee@gmail.com';
+
+      const subject = encodeURIComponent(`[NFA Contact - ${topic}] From ${name}`);
+      const bodyLines = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        school ? `Institution: ${school}` : null,
+        `Department: ${topic}`,
+        '',
+        'Message:',
+        message
+      ].filter(Boolean).join('\n');
+
+      sendEmailCopy.href = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
+
+      confirmationSummary.textContent = `Thank you, ${name}. Your inquiry regarding "${topic}" has been prepared for ${targetEmail}. You can also launch your default mail client below to send an immediate direct copy.`;
+
+      contactForm.style.display = 'none';
+      successCard.classList.add('visible');
+    });
+
+    function resetContactForm() {
+      contactForm.reset();
+      errorBanner.style.display = 'none';
+      successCard.classList.remove('visible');
+      contactForm.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
