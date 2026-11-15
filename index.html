@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nfa - The New Standard</title>
+    <style>
+        /* Base styles & background */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            background: radial-gradient(circle at center, #2e0e0e 0%, #111111 70%);
+            color: #ffffff;
+        }
+
+        /* Prevent manual scrolling past the first section on load */
+        body.lock-scroll {
+            overflow: hidden;
+        }
+
+        /* Allow scrolling once unlocked */
+        body.unlock-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Top Navigation Bar */
+        header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-image-top {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            opacity: 1;
+        }
+
+        .header-right a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .header-right a:hover {
+            opacity: 1;
+        }
+
+        /* Content Layout Sections */
+        section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Home Screen Container */
+        #home-section {
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        #home-section main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px; 
+        }
+
+        .brand-visual-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .logo-image-center {
+            width: 200px; 
+            height: 200px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 75px); 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+
+        p.description {
+            max-width: 460px;
+            font-size: clamp(14px, 1.8vw, 16px);
+            line-height: 1.5;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        /* Action Arrow Button Area */
+        .bottom-action-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px; 
+            padding-bottom: 20px;
+        }
+
+        .click-more {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-decoration: none;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: opacity 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .click-more:hover {
+            opacity: 1;
+        }
+
+        .arrow-button {
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .click-more:hover .arrow-button {
+            transform: translateY(3px);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .arrow-button svg {
+            fill: #ffffff;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Greatness Section Wrapper */
+        #greatness-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Greatness / Split Section Layout */
+        .split-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            padding: 80px 40px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            margin: auto 0; 
+        }
+
+        .left-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .left-content h2 {
+            font-size: clamp(35px, 6vw, 65px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+
+        .left-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .right-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-content img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Bottom Tab Row - Minimalist style with no logo on the left */
+        footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Push content completely to the right */
+            padding: 24px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-right a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-right a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="lock-scroll">
+
+    <!-- Header Navigation Section -->
+    <header>
+        <div class="logo-area">
+            <img src="cropped-nfa-red-bubble.png" alt="nfa" class="logo-image-top">
+        </div>
+        
+        <nav>
+            <a href="#home-section" class="active">Home</a>
+            <a href="#tab1">Tab 1</a>
+            <a href="#tab2">Tab 2</a>
+            <a href="#tab3">Tab 3</a>
+        </nav>
+
+        <div class="header-right">
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <!-- First Page View (Landing) -->
+    <section id="home-section">
+        <main>
+            <div class="brand-visual-container">
+                <img src="cropped-nfa-red-bubble.png" alt="nfa" class="logo-image-center">
+            </div>
+
+            <h1>National Thing Foundation</h1>
+            <p class="description">blah blah blah put whatev here</p>
+        </main>
+
+        <div class="bottom-action-wrapper">
+            <button class="click-more" onclick="unlockAndScroll()">
+                Click Here For More
+                <div class="arrow-button">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7.41,8.59L12,13.17l4.59-4.58L18,10l-6,6l-6-6L7.41,8.59z"/>
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Second Page View (Content) -->
+    <section id="greatness-section">
+        <div class="split-container">
+            <div class="left-content">
+                <h2>placeholder fpr greatness</h2>
+                <p>add more stuff here buit look at funny vyper haha lol</p>
+            </div>
+            <div class="right-content">
+                <!-- Replace with your actual funny vyper image file path if needed -->
+                <img src="0d8d6fe83b117098d8c0532001b37446.jpg" alt="funny vyper">
+            </div>
+        </div>
+
+        <!-- Footer Navigation Section -->
+        <footer>
+            <div class="footer-right">
+                <a href="#shop">shop</a>
+                <a href="#contact">contact</a>
+            </div>
+        </footer>
+    </section>
+
+    <!-- Simple click mechanic to handle screen navigation naturally -->
+    <script>
+        function unlockAndScroll() {
+            document.body.classList.remove('lock-scroll');
+            document.body.classList.add('unlock-scroll');
+            document.getElementById('greatness-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

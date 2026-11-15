@@ -1,0 +1,294 @@
+
+/* RESEARCH PAGE STYLING */
+
+/* Main page */
+.research-page {
+    background-color: rgb(64, 64, 193);
+    color: white;
+}
+
+/* HEADER */
+.research-page header {
+    background-color: #050d21;
+    padding: 12px 25px;
+}
+
+/* LOGO AND ORGANIZATION NAME */
+.research-page .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    margin: 0;
+    width: auto;
+}
+
+/* NFA LOGO IMAGE */
+.research-page .logo-container img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/* TEXT NEXT TO LOGO */
+.research-page .logo-text {
+    width: auto;
+    margin: 0;
+    background: transparent;
+}
+
+.research-page .logo-text p {
+    color: #e9bc32;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0 0 5px;
+}
+
+.research-page .logo-text h2 {
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    margin: 0;
+}
+
+/* NAVIGATION BAR */
+.research-page nav {
+    margin-top: 18px;
+    width: 100%;
+}
+
+.research-page nav ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.research-page nav li {
+    margin: 0;
+}
+
+.research-page nav a {
+    color: #cbd1dc;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Navigation hover effect */
+.research-page nav a:hover {
+    color: #e9bc32;
+}
+
+/* Highlight current Research page */
+.research-page nav a.active {
+    color: #e9bc32;
+}
+
+
+/* RESEARCH PAGE MAIN CONTENT */
+.research-page {
+    background-color: #f7f5f0;
+    color: #172b4d;
+}
+
+.research-page .research-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+/* PAGE INTRODUCTION */
+.research-page .research-intro {
+    margin-bottom: 30px;
+}
+
+.research-page .research-intro h1 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    color: #172b4d;
+    margin: 0 0 12px;
+}
+
+.research-page .research-intro p {
+    font-size: 17px;
+    color: #526174;
+    line-height: 1.6;
+}
+
+/* RESEARCH SECTIONS */
+.research-page .research-section {
+    display: block;
+    background-color: white;
+    color: #333;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    border: 1px solid #e4e1db;
+}
+
+.research-page .research-section h2 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    color: #172b4d;
+    margin: 0 0 15px;
+}
+
+.research-page .research-section h3 {
+    color: #172b4d;
+    font-size: 19px;
+    margin-top: 28px;
+    margin-bottom: 12px;
+}
+
+.research-page .research-section p,
+.research-page .research-section li {
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.research-page .research-section li {
+    margin-bottom: 12px;
+}
+
+.research-page .research-section ol {
+    padding-left: 25px;
+}
+
+.research-page .research-section ol ol {
+    margin-top: 12px;
+}
+
+/* JOURNAL BUTTONS */
+.research-page .research-button {
+    display: inline-block;
+    background-color: #173b67;
+    color: white;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.research-page .research-button:hover {
+    background-color: #a77b27;
+    color: white;
+}
+
+/* SIMPLE NCA SECTION */
+.research-page .nca-section {
+    background-color: transparent;
+    border: none;
+    border-left: 4px solid #c49b42;
+    border-radius: 0;
+    padding: 10px 25px;
+}
+
+/* FOOTER */
+.research-page .research-footer {
+    background-color: #050d21;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+.research-page .research-footer p {
+    margin: 0;
+}
+
+/* SMALL SCREENS */
+@media (max-width: 600px) {
+    .research-page .research-content {
+        padding: 25px 15px;
+    }
+
+    .research-page .research-section {
+        padding: 20px;
+    }
+
+    .research-page .research-intro h1 {
+        font-size: 30px;
+    }
+}
+
+/* CHECKMARK REQUIREMENTS */
+.research-page .requirement-list {
+    list-style: none;
+    padding-left: 10px;
+    margin: 20px 0;
+}
+
+.research-page .requirement-list li {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Green checkmark */
+.research-page .requirement-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #24834b;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* IMPORTANT SIDE NOTE */
+.research-page .research-note {
+    background-color: #f3f6fa;
+    border-left: 4px solid #c49b42;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.research-page .research-note strong {
+    color: #172b4d;
+}
+
+.research-page .research-note p {
+    margin: 8px 0 0;
+    color: #526174;
+    line-height: 1.6;
+}
+
+/* SOCIAL MEDIA LINKS - HORIZONTAL LAYOUT */
+
+.research-page .social-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 20px auto;
+}
+
+/* Individual social media buttons */
+.research-page .social-links a {
+    display: inline-block;
+    background-color: #173b67;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect */
+.research-page .social-links a:hover {
+    background-color: #c49b42;
+    color: #050d21;
+}
+
