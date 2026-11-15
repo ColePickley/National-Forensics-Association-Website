@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self';" />
   <title>National Forensic Association | Official Portal</title>
   <style>
     :root {
@@ -192,6 +193,7 @@
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
       text-decoration: none;
       display: inline-block;
+      text-align: center;
     }
 
     .btn-outline-light:hover {
@@ -290,6 +292,7 @@
     .deadline-list li {
       display: flex;
       justify-content: space-between;
+      gap: 0.75rem;
       padding: 0.45rem 0;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
     }
@@ -300,6 +303,7 @@
 
     .deadline-list li strong {
       color: var(--white);
+      white-space: nowrap;
     }
 
     /* Grid & Cards */
@@ -349,6 +353,33 @@
       transform: translateY(-3px);
       border-color: var(--border-hover);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Self-Contained Coded SVG Graphic Header inside Cards */
+    .card-graphic {
+      width: 100%;
+      height: 148px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(135deg, rgba(74, 23, 23, 0.55) 0%, rgba(17, 17, 17, 0.92) 100%);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-graphic svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-top: auto;
     }
 
     .badge {
@@ -451,7 +482,7 @@
       margin-top: 0.3rem;
     }
 
-    /* New Post */
+    /* Modal Overlay */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -472,10 +503,25 @@
       background: radial-gradient(circle at top, var(--navy) 0%, var(--navy-dark) 85%);
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: var(--radius-lg);
-      max-width: 540px;
+      max-width: 600px;
       width: 100%;
       padding: 2rem;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal p, .modal li {
+      color: var(--slate);
+      font-size: 0.95rem;
+    }
+
+    .modal ul {
+      margin: 0.75rem 0 1.25rem 1.25rem;
+    }
+
+    .modal li {
+      margin-bottom: 0.45rem;
     }
 
     .form-group {
@@ -530,19 +576,19 @@
 </head>
 <body>
 
-  <!-- Top Announcement thingy -->
+  <!-- Top Announcement Bar -->
   <div class="utility-bar">
     <div>
       <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
     </div>
     <div>
       <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
-      <a href="https://" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
-      <a href="mailto:blah@gmail.com">Contact Our TEAM</a>
+      <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer">Official NFA Portal</a> &nbsp;|&nbsp;
+      <a href="mailto:nfatournamentcommittee@gmail.com">Contact Our Team</a>
     </div>
   </div>
 
-  <!-- My header code is right HERE :) -->
+  <!-- Main Header & Navigation -->
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -583,16 +629,127 @@
         <div class="hero-stat-box">
           <h3>Key Annual Dates &amp; Deadlines</h3>
           <ul class="deadline-list">
-            <li><span>Type of reward here </span> <strong>Date Here</strong></li>
-            <li><span>Tournament Research Proposals Here</span> <strong>Put a date here or pull a date</strong></li>
-            <li><span>Research Committee Notification Here</span> <strong>Put a date here or pull a date</strong></li>
-            <li><span>Experimental Event Proposals Here</span> <strong>Put a date here or pull a date</strong></li>
-            <li><span>IRB Approval Submission Here</span> <strong>Put a date here or pull a date</strong></li>
-            <li><span>Annual LD Resolution Release</span> <strong>Put a date here or pull a date</strong></li>
+            <li><span>NFA Hall of Fame Nominations</span> <strong>January 15</strong></li>
+            <li><span>Tournament Research Proposals</span> <strong>February 10</strong></li>
+            <li><span>Research Committee Notification</span> <strong>February 28</strong></li>
+            <li><span>Eddie Myers Distinguished Service</span> <strong>March 15</strong></li>
+            <li><span>Official IRB Approval Submission</span> <strong>April 1</strong></li>
+            <li><span>Annual LD Resolution Release</span> <strong>July 1</strong></li>
+            <li><span>NCA 112th Convention (New Orleans)</span> <strong>Nov 19–22, 2026</strong></li>
           </ul>
         </div>
       </div>
 
+      <!-- FEATURED INITIATIVES: BALLOT INFO, NCA 2026, & AUDIT SURVEY (100% INLINE CODED SVG GRAPHICS) -->
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Governance, Convention &amp; Community Assessment</p>
+          <h2>Featured NFA Announcements &amp; Member Actions</h2>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- 1. BALLOT INFO -->
+        <article class="card" id="ballot-info">
+          <div>
+            <div class="card-graphic" aria-hidden="true">
+              <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img">
+                <defs>
+                  <pattern id="grid-ballot" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect width="400" height="150" fill="url(#grid-ballot)"/>
+                <!-- Decorative Shield / Ring -->
+                <circle cx="200" cy="75" r="56" fill="rgba(46,14,14,0.65)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+                <!-- Ballot Box Base -->
+                <rect x="152" y="76" width="96" height="46" rx="5" fill="#181818" stroke="#f5f5f5" stroke-width="2"/>
+                <line x1="172" y1="84" x2="228" y2="84" stroke="#f5f5f5" stroke-width="3" stroke-linecap="round"/>
+                <!-- Ballot Slip Entering Slot -->
+                <path d="M 180 84 L 180 34 L 220 34 L 220 84 Z" fill="#2e0e0e" stroke="#f5f5f5" stroke-width="2"/>
+                <!-- Checkmark on Ballot -->
+                <polyline points="191,58 198,65 211,50" fill="none" stroke="#f5f5f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Side Accent Lines -->
+                <line x1="65" y1="75" x2="128" y2="75" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <line x1="272" y1="75" x2="335" y2="75" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <span class="badge">Governance &amp; E-Ballots</span>
+            <h3>May Ballot Info &amp; Council Elections</h3>
+            <p>
+              Review candidate statements and voting procedures for NFA National Council positions (VP for Tournament Administration, At-Large Representatives, Graduate Student Representative), the Lincoln-Douglas Debate Committee, and annual LD topic selection.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-gold" onclick="openInfoModal('ballot')">Read Ballot Details</button>
+            <a href="https://nationalforensicassociation.org/may-2026-ballot/" target="_blank" rel="noopener noreferrer" class="btn-outline-light">Official Ballot →</a>
+          </div>
+        </article>
+
+        <!-- 2. NCA 2026 -->
+        <article class="card" id="nca-2026">
+          <div>
+            <div class="card-graphic" aria-hidden="true">
+              <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img">
+                <!-- Architectural Arches (New Orleans French Quarter Motif) -->
+                <path d="M 70 125 L 70 72 A 35 35 0 0 1 140 72 L 140 125" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                <path d="M 165 125 L 165 62 A 35 35 0 0 1 235 62 L 235 125" fill="rgba(46,14,14,0.65)" stroke="#f5f5f5" stroke-width="2.2"/>
+                <path d="M 260 125 L 260 72 A 35 35 0 0 1 330 72 L 330 125" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                <!-- Baseline -->
+                <line x1="48" y1="125" x2="352" y2="125" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+                <!-- Crescent Moon & Star Above Center Arch -->
+                <path d="M 205 22 A 13 13 0 1 0 215 39 A 10 10 0 1 1 205 22 Z" fill="#f5f5f5"/>
+                <!-- Soundwave / Rhetoric Bars inside Center Arch -->
+                <line x1="188" y1="98" x2="188" y2="82" stroke="#f5f5f5" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="196" y1="104" x2="196" y2="72" stroke="#f5f5f5" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="204" y1="100" x2="204" y2="78" stroke="#f5f5f5" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="212" y1="95" x2="212" y2="85" stroke="#f5f5f5" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="badge badge-crimson">Nov 19–22, 2026 • New Orleans</span>
+            <h3>NCA 2026 in New Orleans</h3>
+            <p>
+              Join NFA coaches, scholars, and graduate students at the National Communication Association's 112th Annual Convention in New Orleans, Louisiana (<em>Move/ments in Communication</em>) for NFA business meetings, forensic pedagogy panels, and community gatherings.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-gold" onclick="openInfoModal('nca')">Convention Overview</button>
+            <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer" class="btn-outline-light">NFA Updates →</a>
+          </div>
+        </article>
+
+        <!-- 3. AUDIT SURVEY -->
+        <article class="card" id="audit-survey">
+          <div>
+            <div class="card-graphic" aria-hidden="true">
+              <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img">
+                <!-- Interlocking Community Circles (Left) -->
+                <circle cx="132" cy="75" r="28" fill="rgba(46,14,14,0.6)" stroke="#f5f5f5" stroke-width="2"/>
+                <circle cx="158" cy="75" r="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+                <!-- Structured Audit Survey Clipboard / Bars (Right) -->
+                <rect x="218" y="34" width="76" height="82" rx="6" fill="#181818" stroke="#f5f5f5" stroke-width="2"/>
+                <rect x="242" y="28" width="28" height="10" rx="3" fill="#2e0e0e" stroke="#f5f5f5" stroke-width="1.5"/>
+                <!-- Survey Progress Bars -->
+                <line x1="232" y1="54" x2="280" y2="54" stroke="#f5f5f5" stroke-width="3" stroke-linecap="round"/>
+                <line x1="232" y1="70" x2="268" y2="70" stroke="rgba(255,255,255,0.65)" stroke-width="3" stroke-linecap="round"/>
+                <line x1="232" y1="86" x2="275" y2="86" stroke="#f5f5f5" stroke-width="3" stroke-linecap="round"/>
+                <line x1="232" y1="102" x2="260" y2="102" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="badge">EDI Committee Assessment</span>
+            <h3>Diversity, Equity &amp; Inclusion Audit Survey</h3>
+            <p>
+              On behalf of the NFA Equity, Diversity, and Inclusion (EDI) Committee, all competitors, coaches, and judges are invited to complete the confidential 10-minute Equity and Inclusion Audit Survey covering demographics, community perceptions, and institutional belonging.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-gold" onclick="openInfoModal('survey')">Survey Breakdown</button>
+            <a href="https://nationalforensicassociation.org/2025-equity-and-inclusion-audit-survey/" target="_blank" rel="noopener noreferrer" class="btn-outline-light">Take Survey →</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- CORE PILLARS OF THE NFA -->
       <div class="section-header">
         <h2>Core Pillars of the NFA</h2>
       </div>
@@ -600,19 +757,21 @@
       <div class="grid-3">
         <article class="card">
           <div>
-            <span class="badge"> important information here maybe???????</span>
-            <h3>News block</h3>
-            <p>tors yaddayadda here</p>
+            <span class="badge">National Standards</span>
+            <h3>Individual Events &amp; Lincoln-Douglas</h3>
+            <p>
+              Explore official event descriptions, time limits, manuscript guidelines, and qualification criteria for all 11 NFA Individual Events and one-person Lincoln-Douglas policy debate.
+            </p>
           </div>
           <button class="btn-outline-light" onclick="switchTab('competition')">View Event Standards →</button>
         </article>
 
         <article class="card">
           <div>
-            <span class="badge badge-crimson">Important infomation here.</span>
+            <span class="badge badge-crimson">Peer-Reviewed Scholarship</span>
             <h3>National Forensic Journal (NFJ)</h3>
             <p>
-             yaddayadda
+              Published since 1983 (ISSN 0749-1042), the NFJ advances scholarly research in forensic pedagogy, argumentation, performance studies, and tournament administration.
             </p>
           </div>
           <button class="btn-outline-light" onclick="switchTab('research')">Journal &amp; IRB Guidelines →</button>
@@ -631,7 +790,7 @@
       </div>
     </section>
 
-    <!-- Competition tab -->
+    <!-- ================= COMPETITION TAB ================= -->
     <section id="tab-competition" class="tab-section">
       <div class="section-header">
         <div>
@@ -658,9 +817,9 @@
         <div class="card">
           <div>
             <span class="badge badge-crimson">One-Person Policy Debate</span>
-            <h3>Post here :P</h3>
+            <h3>NFA Lincoln-Douglas Debate</h3>
             <p>
-              <strong>yaddayadda</strong>.
+              <strong>Format &amp; Resolution:</strong> One-person policy debate emphasizing ethical advocacy, rigorous research, and persuasive public communication on an annual national policy topic.
             </p>
             <p>
               <strong>Communication Emphasis:</strong> Rapid-fire "spread delivery" is antithetical to the event. Speeches must remain comprehensible and persuasive, with accurate, contextualized evidence. The annual resolution is announced every <strong>July 1</strong>.
@@ -679,14 +838,14 @@
       </div>
     </section>
 
-    <!-- researchtab-->
+    <!-- ================= RESEARCH TAB ================= -->
     <section id="tab-research" class="tab-section">
       <div class="section-header">
         <div>
           <p class="eyebrow">Scholarly Inquiry &amp; Pedagogy</p>
           <h2>National Forensic Journal &amp; Tournament Research</h2>
         </div>
-        <a href="" target="_blank" rel="noopener" class="btn-gold">Submit  →</a>
+        <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer" class="btn-gold">Submit Manuscript →</a>
       </div>
 
       <div class="grid-2">
@@ -701,7 +860,7 @@
               <strong>Editorial Leadership:</strong> Dr. Justin Rudnick (Editor) &amp; Dr. Kevin Minch (Associate Editor). Questions: <a href="mailto:nfajournal@gmail.com" style="color: var(--gold-light);">nfajournal@gmail.com</a>.
             </p>
           </div>
-          <a href="" target="_blank" rel="noopener" class="btn-outline-light">Read Aims &amp; Scope</a>
+          <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer" class="btn-outline-light">Read Aims &amp; Scope</a>
         </div>
 
         <div class="card">
@@ -722,7 +881,7 @@
       </div>
     </section>
 
-    <!-- ================= M board ================= -->
+    <!-- ================= MESSAGE BOARD TAB ================= -->
     <section id="tab-board" class="tab-section">
       <div class="section-header">
         <div>
@@ -746,7 +905,7 @@
       <div id="thread-container" class="thread-list"></div>
     </section>
 
-    <!-- ARCHIVES TAB ================= -->
+    <!-- ================= ARCHIVES TAB ================= -->
     <section id="tab-archives" class="tab-section">
       <div class="section-header">
         <div>
@@ -770,8 +929,21 @@
     </section>
   </main>
 
+  <!-- Feature Detail Modal (Ballot Info / NCA 2026 / Audit Survey) -->
+  <div id="info-modal" class="modal-overlay" onclick="if(event.target===this) closeInfoModal()">
+    <div class="modal">
+      <span id="info-modal-badge" class="badge">NFA Notice</span>
+      <h3 id="info-modal-title" style="font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--gold);"></h3>
+      <div id="info-modal-body"></div>
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; flex-wrap: wrap;">
+        <button class="btn-outline-light" onclick="closeInfoModal()">Close</button>
+        <a id="info-modal-link" href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer" class="btn-gold">Open Official Page →</a>
+      </div>
+    </div>
+  </div>
+
   <!-- New Discussion Modal -->
-  <div id="post-modal" class="modal-overlay">
+  <div id="post-modal" class="modal-overlay" onclick="if(event.target===this) toggleModal(false)">
     <div class="modal">
       <h3 style="margin-bottom: 1rem; color: var(--gold);">Create New Discussion Thread</h3>
       <div class="form-group">
@@ -805,22 +977,88 @@
         <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
       </div>
       <div>
-        Designed to match the NFA Digital Archive &amp; Championship Portal
+        Self-Contained Secure Portal • NFA Digital Archive &amp; Championship Hub
       </div>
     </div>
   </footer>
 
   <script>
+    // Sanitize user-entered strings before rendering into DOM
+    function escapeHTML(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Structured details for the 3 Featured Homepage Cards
+    const featureDetails = {
+      ballot: {
+        badge: "Governance & E-Ballot Procedures",
+        title: "NFA May Ballot & Tournament E-Ballot Guide",
+        url: "https://nationalforensicassociation.org/may-2026-ballot/",
+        html: `
+          <p>Each member institution's designated voting delegate casts the official electronic ballot covering NFA leadership, committee representation, and Lincoln-Douglas policy debate topic selection:</p>
+          <ul>
+            <li><strong>National Council Elections:</strong> Vice President for Tournament Administration, At-Large Council Representatives, and Graduate Student Representative.</li>
+            <li><strong>Lincoln-Douglas Debate Committee:</strong> Selection of committee representatives and annual LD resolution balloting.</li>
+            <li><strong>Tournament E-Ballots (SpeechWire):</strong> Judges must register a valid email at <em>live.speechwire.com</em>, bring a charged device to rounds, click "Start" upon entering the room, and submit ranks immediately after each round.</li>
+          </ul>
+        `
+      },
+      nca: {
+        badge: "Nov 19–22, 2026 • New Orleans, LA",
+        title: "NFA at NCA 2026 in New Orleans",
+        url: "https://nationalforensicassociation.org/",
+        html: `
+          <p>The National Forensic Association convenes annually alongside the National Communication Association (NCA) 112th Annual Convention, hosted in New Orleans from <strong>November 19–22, 2026</strong> (Theme: <em>Move/ments in Communication</em>).</p>
+          <ul>
+            <li><strong>NFA General Business Meeting:</strong> Review mid-year tournament logistics, committee reports, and constitutional or bylaw proposals.</li>
+            <li><strong>Sponsored Academic Panels:</strong> Competitive paper sessions and roundtables exploring forensic pedagogy, argumentation, and tournament wellness.</li>
+            <li><strong>Graduate &amp; Director Networking:</strong> Connect with forensic educators, graduate assistants, and <em>National Forensic Journal</em> editorial leadership.</li>
+          </ul>
+        `
+      },
+      survey: {
+        badge: "NFA Equity, Diversity & Inclusion Committee",
+        title: "Equity and Inclusion Audit Survey",
+        url: "https://nationalforensicassociation.org/2025-equity-and-inclusion-audit-survey/",
+        html: `
+          <p>On behalf of the NFA Equity, Diversity, and Inclusion (EDI) Committee, all undergraduate competitors, graduate assistants, coaches, and judges are encouraged to share their experiences in the <strong>Equity and Inclusion Audit Survey</strong>.</p>
+          <ul>
+            <li><strong>Estimated Time:</strong> Approximately 10 minutes to complete.</li>
+            <li><strong>Four Core Sections:</strong> (1) Demographics, (2) Perceptions in Brief, (3) Agreement Scales, and (4) Open-Ended Recommendations.</li>
+            <li><strong>Purpose:</strong> Aggregate findings guide NFA Council policy, tournament accessibility resources, judge training, and competitor wellness initiatives.</li>
+          </ul>
+        `
+      }
+    };
+
+    function openInfoModal(key) {
+      const item = featureDetails[key];
+      if (!item) return;
+      document.getElementById('info-modal-badge').textContent = item.badge;
+      document.getElementById('info-modal-title').textContent = item.title;
+      document.getElementById('info-modal-body').innerHTML = item.html;
+      document.getElementById('info-modal-link').href = item.url;
+      document.getElementById('info-modal').classList.add('open');
+    }
+
+    function closeInfoModal() {
+      document.getElementById('info-modal').classList.remove('open');
+    }
+
     // Initial data for Message Board
     const threads = [
-      { title: "YO THIS IS THE SPOT RIGHT FRIGGIN HERE BABY BOY :P", category: "Debate", author: "someone", date: "", replies: 666 },
-     
+      { title: "NCA 2026 New Orleans — NFA Business Meeting & Panel Schedule", category: "Tournament", author: "NFA Executive Council", date: "Nov 2026", replies: 14 },
+      { title: "Reminder: Complete the NFA Equity & Inclusion Audit Survey", category: "Pedagogy", author: "NFA EDI Committee", date: "Recent", replies: 9 },
+      { title: "SpeechWire E-Ballot Setup & Judge Check-In Tips", category: "Tournament", author: "Tournament Administration", date: "Recent", replies: 22 }
     ];
 
     // Initial data for Searchable Archives based on actual NFA documents & NFJ Vol. 39
     const archives = [
       { title: "NFA Constitution (Official Governing Document)", type: "Governance", year: "2023", desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.", url: "https://nationalforensicassociation.org/about-nfa/" },
-      
+      { title: "NFA Bylaws & Competition Rules", type: "Rules", year: "2023", desc: "Complete Individual Events and Lincoln-Douglas Debate rules, qualification criteria, and tabulation standards.", url: "https://nationalforensicassociation.org/about-nfa/" },
+      { title: "Election Procedures for NFA Council Positions", type: "Governance", year: "2021", desc: "Official online balloting, delegate voting, and run-off election guidelines for National Council officers.", url: "https://nationalforensicassociation.org/wp-content/uploads/2021/12/election-procedures-for-nfa-council-positions.pdf" }
     ];
 
     function switchTab(tabName) {
@@ -831,7 +1069,7 @@
       const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`) || document.querySelector('.tab-btn[data-tab="home"]');
 
       targetSection.classList.add('active');
-      targetBtn.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
 
       // Keep URL parameter synced with index.html convention
       const url = new URL(window.location);
@@ -852,12 +1090,12 @@
       container.innerHTML = filtered.map(t => `
         <div class="thread-item">
           <div>
-            <span class="badge" style="margin-bottom: 0.35rem;">${t.category}</span>
-            <h3 style="font-size: 1.1rem;">${t.title}</h3>
-            <div class="thread-meta">Posted by <strong>${t.author}</strong> • ${t.date}</div>
+            <span class="badge" style="margin-bottom: 0.35rem;">${escapeHTML(t.category)}</span>
+            <h3 style="font-size: 1.1rem;">${escapeHTML(t.title)}</h3>
+            <div class="thread-meta">Posted by <strong>${escapeHTML(t.author)}</strong> • ${escapeHTML(t.date)}</div>
           </div>
           <div style="text-align: right;">
-            <span class="btn-outline-light" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">${t.replies} Replies →</span>
+            <span class="btn-outline-light" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">${Number(t.replies)} Replies →</span>
           </div>
         </div>
       `).join('');
@@ -892,11 +1130,11 @@
       container.innerHTML = filtered.map(a => `
         <article class="card">
           <div>
-            <span class="badge">${a.type} • ${a.year}</span>
-            <h3>${a.title}</h3>
-            <p>${a.desc}</p>
+            <span class="badge">${escapeHTML(a.type)} • ${escapeHTML(a.year)}</span>
+            <h3>${escapeHTML(a.title)}</h3>
+            <p>${escapeHTML(a.desc)}</p>
           </div>
-          <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">Open Document / Record →</a>
+          <a href="${a.url}" target="_blank" rel="noopener noreferrer" class="btn-outline-light">Open Document / Record →</a>
         </article>
       `).join('');
     }
