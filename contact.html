@@ -5,256 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' mailto:;" />
   <title>Contact Us | National Forensic Association</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    :root {
-      /* Mapped directly from home.html & index.html's color palette */
-      --navy: #2e0e0e;
-      --navy-dark: #111111;
-      --navy-card: rgba(17, 17, 17, 0.65);
-      --crimson: #2e0e0e;
-      --crimson-light: #4a1717;
-      --gold: #f5f5f5;
-      --gold-light: #ffffff;
-      --white: #ffffff;
-      --slate: rgba(255, 255, 255, 0.85);
-      --slate-muted: rgba(255, 255, 255, 0.65);
-      --border-gold: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(255, 255, 255, 0.35);
-      --radius: 8px;
-      --radius-lg: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at center, var(--navy) 0%, var(--navy-dark) 70%);
-      background-attachment: fixed;
-      color: var(--white);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.6;
-    }
-
-    h1, h2, h3, .serif {
-      font-family: 'Georgia', serif;
-      color: var(--gold);
-    }
-
-    /* Top bar */
-    .utility-bar {
-      background: linear-gradient(90deg, var(--crimson) 0%, var(--navy-dark) 100%);
-      color: var(--white);
-      font-size: 0.85rem;
-      padding: 0.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-gold);
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .utility-bar a {
-      color: var(--gold);
-      text-decoration: none;
-      font-weight: 600;
-      opacity: 0.85;
-      transition: opacity 0.2s;
-    }
-
-    .utility-bar a:hover {
-      opacity: 1;
-      text-decoration: underline;
-    }
-
-    /* Main Header & Navigation */
-    header {
-      background: rgba(17, 17, 17, 0.75);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-gold);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0.85rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .brand-logo {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
-    }
-
-    .brand-text span {
-      display: block;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      color: var(--slate-muted);
-      font-weight: 700;
-    }
-
-    .brand-text strong {
-      font-family: 'Georgia', serif;
-      font-size: 1.25rem;
-      letter-spacing: 0.5px;
-      color: var(--gold);
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .tab-btn {
-      background: transparent;
-      color: var(--white);
-      opacity: 0.7;
-      border: 1px solid transparent;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-
-    .tab-btn:hover {
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .tab-btn.active {
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--white);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    /* Buttons */
-    .btn-gold {
-      background: var(--gold);
-      color: var(--navy-dark);
-      border: 1px solid var(--white);
-      padding: 0.75rem 1.5rem;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border-radius: var(--radius);
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .btn-gold:hover {
-      background: var(--white);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    .btn-outline-light {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--white);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 0.7rem 1.35rem;
-      font-size: 0.92rem;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .btn-outline-light:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* Main Layout */
-    main {
-      flex: 1;
-      max-width: 1280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 2.25rem 2rem 4rem;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Hero Banner */
-    .hero-banner {
-      background: radial-gradient(circle at right top, rgba(46, 14, 14, 0.85), rgba(17, 17, 17, 0.92)),
-                  linear-gradient(135deg, rgba(46, 14, 14, 0.5), rgba(17, 17, 17, 0.95));
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      padding: 2.75rem 2.5rem;
-      margin-bottom: 2.5rem;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    }
-
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--slate-muted);
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-banner h1 {
-      font-size: clamp(1.85rem, 3.2vw, 2.65rem);
-      line-height: 1.2;
-      margin-bottom: 0.85rem;
-      color: var(--gold);
-    }
-
-    .hero-banner p {
-      color: var(--slate);
-      font-size: 1.02rem;
-      max-width: 640px;
-    }
-
     .hero-graphic-box {
       background: rgba(17, 17, 17, 0.75);
       border: 1px solid var(--border-gold);
@@ -265,15 +17,12 @@
       align-items: center;
       justify-content: center;
     }
-
     .hero-graphic-box svg {
       width: 100%;
       max-width: 320px;
       height: 135px;
       display: block;
     }
-
-    /* Layout Grids */
     .contact-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr;
@@ -281,82 +30,14 @@
       margin-bottom: 2.75rem;
       align-items: start;
     }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-gold);
-      padding-bottom: 0.75rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.65rem;
-      color: var(--gold);
-    }
-
-    .card {
-      background: var(--navy-card);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.65rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--gold);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 0.85rem;
-      width: fit-content;
-    }
-
-    .badge-crimson {
-      background: rgba(46, 14, 14, 0.85);
-      color: var(--gold);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .card h2, .card h3 {
-      margin-bottom: 0.65rem;
-      color: var(--gold);
-    }
-
-    .card p {
-      color: var(--slate);
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-    }
-
-    /* Contact Form Styling */
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-
     .form-group {
       margin-bottom: 1.15rem;
     }
-
     .form-group label {
       display: block;
       font-size: 0.88rem;
@@ -364,12 +45,10 @@
       margin-bottom: 0.4rem;
       font-weight: 600;
     }
-
     .required-mark {
       color: #e57373;
       margin-left: 3px;
     }
-
     .form-group input,
     .form-group textarea,
     .form-group select {
@@ -383,7 +62,6 @@
       font-size: 0.95rem;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus {
@@ -391,41 +69,27 @@
       border-color: rgba(255, 255, 255, 0.65);
       box-shadow: 0 0 0 3px rgba(74, 23, 23, 0.45);
     }
-
     .form-group select option {
       background: var(--navy-dark);
       color: var(--white);
     }
-
     .form-group textarea {
       min-height: 145px;
       resize: vertical;
     }
-
-    /* Form Validation & Confirmation States (Matching original WP/Gravity Forms feedback) */
     .form-feedback {
       display: none;
       padding: 1.1rem 1.25rem;
       border-radius: var(--radius);
       margin-bottom: 1.25rem;
       font-size: 0.95rem;
-      animation: fadeIn 0.25s ease;
     }
-
     .form-feedback.error {
       display: block;
       background: rgba(120, 20, 20, 0.45);
       border: 1px solid rgba(255, 130, 130, 0.45);
       color: #ffd6d6;
     }
-
-    .form-feedback.success {
-      display: block;
-      background: rgba(46, 14, 14, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      color: var(--white);
-    }
-
     .success-card {
       display: none;
       text-align: center;
@@ -433,21 +97,16 @@
       background: radial-gradient(circle at top, rgba(74, 23, 23, 0.55), rgba(17, 17, 17, 0.9));
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: var(--radius-lg);
-      animation: fadeIn 0.3s ease;
     }
-
     .success-card.visible {
       display: block;
     }
-
-    /* Social Media Cards (Self-Contained Inline SVG Brand Graphics) */
     .social-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-
     .social-card {
       background: rgba(17, 17, 17, 0.78);
       border: 1px solid var(--border-gold);
@@ -460,14 +119,12 @@
       gap: 0.95rem;
       transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
     }
-
     .social-card:hover {
       transform: translateY(-3px);
       border-color: var(--border-hover);
       background: linear-gradient(135deg, rgba(74, 23, 23, 0.55) 0%, rgba(17, 17, 17, 0.95) 100%);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
     }
-
     .social-icon-wrap {
       width: 48px;
       height: 48px;
@@ -479,13 +136,11 @@
       justify-content: center;
       flex-shrink: 0;
     }
-
     .social-icon-wrap svg {
       width: 24px;
       height: 24px;
       fill: var(--gold);
     }
-
     .social-meta strong {
       display: block;
       font-family: 'Georgia', serif;
@@ -493,21 +148,18 @@
       color: var(--gold);
       margin-bottom: 0.1rem;
     }
-
     .social-meta span {
       display: block;
       font-size: 0.8rem;
       color: var(--slate-muted);
     }
-
-    /* Direct Department Directory */
     .directory-list {
       list-style: none;
+      margin: 0;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
     }
-
     .directory-item {
       background: rgba(17, 17, 17, 0.72);
       border: 1px solid var(--border-gold);
@@ -519,19 +171,16 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
-
     .directory-item strong {
       display: block;
       color: var(--gold);
       font-size: 0.98rem;
     }
-
     .directory-item span {
       display: block;
       font-size: 0.84rem;
       color: var(--slate-muted);
     }
-
     .directory-item a {
       color: var(--gold);
       font-size: 0.88rem;
@@ -540,45 +189,15 @@
       border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
       padding-bottom: 2px;
     }
-
     .directory-item a:hover {
       color: var(--white);
       border-bottom-color: var(--white);
     }
-
-    /* Footer */
-    footer {
-      background: rgba(17, 17, 17, 0.6);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid var(--border-gold);
-      padding: 2.5rem 2rem;
-      margin-top: auto;
-      font-size: 0.9rem;
-      color: var(--slate-muted);
-    }
-
-    .footer-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
     @media (max-width: 920px) {
-      .hero-banner,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
+      .contact-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 560px) {
-      .form-row,
-      .social-grid {
-        grid-template-columns: 1fr;
-      }
+      .form-row, .social-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -591,7 +210,7 @@
     </div>
     <div>
       <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
-      <a href="https://nationalforensicassociation.org/" target="_blank" rel="noopener noreferrer">Official NFA Portal</a> &nbsp;|&nbsp;
+      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener noreferrer">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
       <a href="contact.html">Contact Our Team</a>
     </div>
   </div>
@@ -608,9 +227,10 @@
       </a>
 
       <nav class="nav-tabs" aria-label="Primary Navigation">
-        <a href="home.html?tab=home" class="tab-btn">Home</a>
-        <a href="home.html?tab=competition" class="tab-btn">Competition &amp; LD</a>
-        <a href="research.html" class="tab-btn">Research</a>
+        <a href="home.html" class="tab-btn">Home</a>
+        <a href="about.html" class="tab-btn">About</a>
+        <a href="competition.html" class="tab-btn">Competition &amp; LD</a>
+        <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
         <a href="home.html?tab=board" class="tab-btn">Message Board</a>
         <a href="archives.html" class="tab-btn">Search Archives</a>
         <a href="tournament.html" class="tab-btn">Tournament</a>
@@ -638,15 +258,11 @@
             </pattern>
           </defs>
           <rect width="360" height="140" fill="url(#contact-grid)"/>
-          <!-- Outer Concentric Signal Rings -->
           <circle cx="180" cy="70" r="54" fill="rgba(46,14,14,0.6)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
           <circle cx="180" cy="70" r="40" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
-          <!-- Sealed Letter / Dispatch Motif -->
           <rect x="134" y="45" width="92" height="54" rx="6" fill="#161616" stroke="#f5f5f5" stroke-width="2"/>
           <polyline points="136,48 180,77 224,48" fill="none" stroke="#f5f5f5" stroke-width="2" stroke-linejoin="round"/>
-          <!-- Crest Seal Dot -->
           <circle cx="180" cy="76" r="6" fill="#4a1717" stroke="#f5f5f5" stroke-width="1.5"/>
-          <!-- Side Transmission Lines -->
           <line x1="42" y1="70" x2="112" y2="70" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
           <line x1="248" y1="70" x2="318" y2="70" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
         </svg>
@@ -655,7 +271,6 @@
 
     <!-- Main Two-Column Contact Section -->
     <div class="contact-grid">
-      <!-- Left Column: Interactive Contact Form -->
       <section class="card" aria-labelledby="contact-form-heading">
         <span class="badge">Direct Inquiry</span>
         <h2 id="contact-form-heading">Send Us a Message</h2>
@@ -710,10 +325,9 @@
           </div>
         </form>
 
-        <!-- Post-Submission Confirmation View -->
         <div id="contact-success-card" class="success-card" role="status" aria-live="polite">
           <span class="badge badge-crimson" style="margin: 0 auto 1rem;">Message Logged</span>
-          <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem;">Thank you for your response. ✨</h3>
+          <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem;">Thank you for your response.</h3>
           <p id="confirmation-summary" style="max-width: 480px; margin: 0 auto 1.5rem;"></p>
           <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
             <button type="button" class="btn-outline-light" onclick="resetContactForm()">← Back to Contact Form</button>
@@ -722,9 +336,7 @@
         </div>
       </section>
 
-      <!-- Right Column: Social Media Channels & Direct Contacts -->
       <div style="display: flex; flex-direction: column; gap: 1.75rem;">
-        <!-- Social Media Channels Card -->
         <section class="card" aria-labelledby="social-heading">
           <span class="badge badge-crimson">Official Channels</span>
           <h2 id="social-heading">Connect on Social Media</h2>
@@ -733,7 +345,6 @@
           </p>
 
           <div class="social-grid">
-            <!-- Facebook -->
             <a href="https://www.facebook.com/NationalForensicAssociation/" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Facebook">
               <div class="social-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -746,7 +357,6 @@
               </div>
             </a>
 
-            <!-- Twitter / X -->
             <a href="https://twitter.com/NFAForensics" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Twitter / X">
               <div class="social-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -759,7 +369,6 @@
               </div>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/nfaforensics/" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on Instagram">
               <div class="social-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -772,7 +381,6 @@
               </div>
             </a>
 
-            <!-- YouTube -->
             <a href="https://www.youtube.com/@NFAForensics" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="NFA on YouTube">
               <div class="social-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -791,7 +399,6 @@
           </a>
         </section>
 
-        <!-- Direct Committee Email Contacts -->
         <section class="card" aria-labelledby="directory-heading">
           <span class="badge">Direct Routing</span>
           <h3 id="directory-heading" style="font-size: 1.25rem;">Key Committee Contacts</h3>
@@ -863,7 +470,6 @@
 
       errorBanner.style.display = 'none';
 
-      // Determine appropriate recipient based on routing selection
       const targetEmail = topic === 'National Forensic Journal (NFJ)'
         ? 'nfajournal@gmail.com'
         : 'nfatournamentcommittee@gmail.com';

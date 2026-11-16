@@ -8,17 +8,19 @@
 </head>
 <body>
 
+  <!-- Top Announcement Bar -->
   <div class="utility-bar">
     <div>
       <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
     </div>
     <div>
       <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
-      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
-      <a href="mailto:blah@gmail.com">Contact Editors</a>
+      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener noreferrer">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
+      <a href="contact.html">Contact Our Team</a>
     </div>
   </div>
 
+  <!-- Main Header & Navigation -->
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -31,11 +33,13 @@
 
       <nav class="nav-tabs" aria-label="Primary Navigation">
         <a href="home.html" class="tab-btn">Home</a>
-        <a href="competition.html" class="tab-btn active">Competition &amp; LD</a>
+        <a href="about.html" class="tab-btn">About</a>
+        <a href="competition.html" class="tab-btn active" aria-current="page">Competition &amp; LD</a>
         <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
-        <a href="board.html" class="tab-btn">Message Board</a>
+        <a href="home.html?tab=board" class="tab-btn">Message Board</a>
         <a href="archives.html" class="tab-btn">Search Archives</a>
         <a href="tournament.html" class="tab-btn">Tournament</a>
+        <a href="contact.html" class="tab-btn">Contact</a>
       </nav>
     </div>
   </header>
@@ -155,7 +159,7 @@
     </div>
 
     <!-- Experimental Events & Archive Table -->
-    <div class="card">
+    <div class="card" style="margin-bottom: 2.5rem;">
       <span class="badge">Innovation in Forensics</span>
       <h3>Experimental Events</h3>
       <p>
@@ -166,58 +170,58 @@
       </p>
 
       <h4>Past Experimental Events &amp; National Champions</h4>
-      <div style="overflow-x: auto; margin-top: 1rem;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+      <div class="table-wrap">
+        <table class="data-table">
           <thead>
-            <tr style="border-bottom: 2px solid currentColor;">
-              <th style="padding: 0.5rem;">Year</th>
-              <th style="padding: 0.5rem;">Host Institution</th>
-              <th style="padding: 0.5rem;">Experimental Event</th>
-              <th style="padding: 0.5rem;">National Champion</th>
+            <tr>
+              <th>Year</th>
+              <th>Host Institution</th>
+              <th>Experimental Event</th>
+              <th>National Champion</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">1996</td>
-              <td style="padding: 0.5rem;">Western Illinois</td>
-              <td style="padding: 0.5rem;">Argumentative Interp</td>
-              <td style="padding: 0.5rem;">August Benassi – Bradley</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">1997</td>
-              <td style="padding: 0.5rem;">Ball State</td>
-              <td style="padding: 0.5rem;">Reader's Theatre</td>
-              <td style="padding: 0.5rem;"><em>No entries</em></td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">1999</td>
-              <td style="padding: 0.5rem;">Eastern Michigan</td>
-              <td style="padding: 0.5rem;">Dramatic Dialogue</td>
-              <td style="padding: 0.5rem;">Jill Valentine – Bradley</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">2007</td>
-              <td style="padding: 0.5rem;">Berry</td>
-              <td style="padding: 0.5rem;">Original Shakespeare</td>
-              <td style="padding: 0.5rem;">Paul Gilleland – Wisconsin-Eau Claire</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">2008</td>
-              <td style="padding: 0.5rem;">Tennessee State</td>
-              <td style="padding: 0.5rem;">Biographical Informative</td>
-              <td style="padding: 0.5rem;">Stan Polit – Northwestern</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(128,128,128,0.2);">
-              <td style="padding: 0.5rem;">2009</td>
-              <td style="padding: 0.5rem;">Drury / Missouri State</td>
-              <td style="padding: 0.5rem;">Editorial Impromptu</td>
-              <td style="padding: 0.5rem;">Stan Polit – Northwestern</td>
+            <tr>
+              <td>1996</td>
+              <td>Western Illinois</td>
+              <td>Argumentative Interp</td>
+              <td>August Benassi – Bradley</td>
             </tr>
             <tr>
-              <td style="padding: 0.5rem;">2012</td>
-              <td style="padding: 0.5rem;">Ohio</td>
-              <td style="padding: 0.5rem;">Forensics Criticism</td>
-              <td style="padding: 0.5rem;">Jeremy Johnson – Ripon</td>
+              <td>1997</td>
+              <td>Ball State</td>
+              <td>Reader's Theatre</td>
+              <td><em>No entries</em></td>
+            </tr>
+            <tr>
+              <td>1999</td>
+              <td>Eastern Michigan</td>
+              <td>Dramatic Dialogue</td>
+              <td>Jill Valentine – Bradley</td>
+            </tr>
+            <tr>
+              <td>2007</td>
+              <td>Berry</td>
+              <td>Original Shakespeare</td>
+              <td>Paul Gilleland – Wisconsin-Eau Claire</td>
+            </tr>
+            <tr>
+              <td>2008</td>
+              <td>Tennessee State</td>
+              <td>Biographical Informative</td>
+              <td>Stan Polit – Northwestern</td>
+            </tr>
+            <tr>
+              <td>2009</td>
+              <td>Drury / Missouri State</td>
+              <td>Editorial Impromptu</td>
+              <td>Stan Polit – Northwestern</td>
+            </tr>
+            <tr>
+              <td>2012</td>
+              <td>Ohio</td>
+              <td>Forensics Criticism</td>
+              <td>Jeremy Johnson – Ripon</td>
             </tr>
           </tbody>
         </table>
@@ -234,13 +238,14 @@
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <div>
         <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
       </div>
       <div>
-        Designed to match the NFA Digital Archive &amp; Championship Portal
+        Self-Contained Secure Portal • NFA Digital Archive &amp; Championship Hub
       </div>
     </div>
   </footer>

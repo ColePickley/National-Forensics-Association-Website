@@ -5,184 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>National Forensic Association | Search Archives</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Fallback & Layout Styles for Search Bar, Cards, and Modal */
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-    .folder-loader-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px dashed rgba(0, 0, 0, 0.25);
-      padding: 0.85rem 1.25rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-    }
-    .folder-btn {
-      cursor: pointer;
-      display: inline-block;
-      padding: 0.55rem 1.1rem;
-      background: #8b0000;
-      color: #fff;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      user-select: none;
-    }
-    .folder-btn:hover {
-      opacity: 0.9;
-    }
-    /* Search & Filter Bar Styling */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.75rem;
-    }
-    .search-input {
-      flex: 1 1 320px;
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      color: #111;
-    }
-    .select-input {
-      flex: 0 1 240px;
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      color: #111;
-      cursor: pointer;
-    }
-    .search-input:focus,
-    .select-input:focus {
-      outline: 2px solid #8b0000;
-      border-color: #8b0000;
-    }
-    /* Archive Grid & Cards */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-    .card {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-    .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      background: #f0e6e6;
-      color: #8b0000;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      margin-bottom: 0.6rem;
-    }
-    .card-actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-    .btn-outline-light {
-      padding: 0.45rem 0.85rem;
-      border: 1px solid #8b0000;
-      background: transparent;
-      color: #8b0000;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .btn-outline-light:hover {
-      background: #8b0000;
-      color: #fff;
-    }
-    /* Modal Viewer */
-    .doc-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-    .doc-modal.active {
-      display: flex;
-    }
-    .doc-modal-content {
-      background: #fff;
-      color: #111;
-      width: 100%;
-      max-width: 800px;
-      max-height: 85vh;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .doc-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid #ddd;
-      background: #f7f7f7;
-    }
-    .doc-modal-body {
-      padding: 1.5rem;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      font-family: monospace;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      background: #fafafa;
-    }
-    .close-modal-btn {
-      background: #333;
-      color: #fff;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
 
+  <!-- Top Announcement Bar -->
   <div class="utility-bar">
     <div>
       <strong>NFA National Championship Hub:</strong> Friendly &amp; healthy intercollegiate forensic competition since 1971.
     </div>
     <div>
       <a href="index.html">← Splash Screen</a> &nbsp;|&nbsp;
-      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
-      <a href="mailto:blah@gmail.com">Contact Editors</a>
+      <a href="https://cornerstone.lib.mnsu.edu/nfj/" target="_blank" rel="noopener noreferrer">NFJ Cornerstone Portal</a> &nbsp;|&nbsp;
+      <a href="contact.html">Contact Our Team</a>
     </div>
   </div>
 
+  <!-- Main Header & Navigation -->
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -195,11 +33,13 @@
 
       <nav class="nav-tabs" aria-label="Primary Navigation">
         <a href="home.html" class="tab-btn">Home</a>
+        <a href="about.html" class="tab-btn">About</a>
         <a href="competition.html" class="tab-btn">Competition &amp; LD</a>
         <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
-        <a href="board.html" class="tab-btn">Message Board</a>
-        <a href="archives.html" class="tab-btn active">Search Archives</a>
+        <a href="home.html?tab=board" class="tab-btn">Message Board</a>
+        <a href="archives.html" class="tab-btn active" aria-current="page">Search Archives</a>
         <a href="tournament.html" class="tab-btn">Tournament</a>
+        <a href="contact.html" class="tab-btn">Contact</a>
       </nav>
     </div>
   </header>
@@ -219,7 +59,7 @@
         <span id="folder-status">Load your local <code>archives</code> folder to import all <code>.txt</code> documents for full-text search, or click any listed document below.</span>
       </div>
       <div>
-        <label for="dir-input" class="folder-btn">📂 Open "archives" Folder (.txt)</label>
+        <label for="dir-input" class="btn-gold" style="padding: 0.55rem 1.1rem; font-size: 0.88rem;">📂 Open "archives" Folder (.txt)</label>
         <input type="file" id="dir-input" webkitdirectory directory multiple style="display: none;" onchange="handleFolderSelect(event)" />
       </div>
     </div>
@@ -251,25 +91,25 @@
     <div class="doc-modal-content">
       <div class="doc-modal-header">
         <strong id="modal-title">Document Viewer</strong>
-        <button type="button" class="close-modal-btn" onclick="closeModal()">✕ Close</button>
+        <button type="button" class="btn-outline-light" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="closeModal()">✕ Close</button>
       </div>
       <div id="modal-body" class="doc-modal-body">Loading document...</div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <div>
         <strong style="color: var(--white);">National Forensic Association</strong> • Established 1971 • ISSN 0749-1042
       </div>
       <div>
-        Designed to match the NFA Digital Archive &amp; Championship Portal
+        Self-Contained Secure Portal • NFA Digital Archive &amp; Championship Hub
       </div>
     </div>
   </footer>
 
   <script>
-    // Fixed folder name to "archives"
     const ARCHIVE_FOLDER = "archives";
 
     const archives = [
@@ -323,7 +163,6 @@
       }
     ];
 
-    // Reads all .txt files when the user selects the "archives" directory
     async function handleFolderSelect(event) {
       const files = Array.from(event.target.files).filter(file =>
         file.name.toLowerCase().endsWith('.txt')
@@ -338,7 +177,6 @@
         const textContent = await file.text();
         const blobUrl = URL.createObjectURL(file);
 
-        // If the file matches an existing entry, attach its text content instead of duplicating
         const existingItem = archives.find(
           a => a.fileName && a.fileName.toLowerCase() === file.name.toLowerCase()
         );
@@ -366,7 +204,6 @@
       renderArchives();
     }
 
-    // Opens a .txt document inside the on-page modal viewer
     async function viewTextDoc(index) {
       const item = currentFiltered[index];
       const modal = document.getElementById('doc-modal');
@@ -415,7 +252,7 @@
       );
 
       if (currentFiltered.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1 / -1; color: #555;">No matching archive documents found for "<strong>${q}</strong>".</p>`;
+        container.innerHTML = `<p style="grid-column: 1 / -1; color: var(--slate);">No matching archive documents found for "<strong>${q}</strong>".</p>`;
         return;
       }
 
@@ -427,10 +264,10 @@
             <p>${a.desc}</p>
           </div>
           <div class="card-actions">
-            <button type="button" onclick="viewTextDoc(${idx})" class="btn-outline-light">
+            <button type="button" onclick="viewTextDoc(${idx})" class="btn-gold" style="padding: 0.55rem 1rem; font-size: 0.85rem;">
               Read Text Doc
             </button>
-            <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline-light">
+            <a href="${a.url}" target="_blank" rel="noopener noreferrer" class="btn-outline-light" style="padding: 0.55rem 1rem; font-size: 0.85rem;">
               Open Raw .txt →
             </a>
           </div>
