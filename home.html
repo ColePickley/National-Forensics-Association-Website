@@ -604,7 +604,7 @@
         <a href="about.html" class="tab-btn">About</a>
         <button class="tab-btn" data-tab="competition" onclick="switchTab('competition')">Competition &amp; LD</button>
         <a href="research.html" class="tab-btn">Research</a>
-        <button class="tab-btn" data-tab="board" onclick="switchTab('board')">Message Board</button>
+        <button class="tab-btn" data-tab="board" onclick="switchTab('board')">Message Board Here</button>
         <a href="archives.html" class="tab-btn">Search Archives</a>
         <a href="tournament.html" class="tab-btn">Tournament</a>
         <a href="contact.html" class="tab-btn">Contact our team</a>
@@ -884,29 +884,7 @@
       </div>
     </section>
 
-    <!-- ================= MESSAGE BOARD TAB ================= -->
-    <section id="tab-board" class="tab-section">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Community Forum</p>
-          <h2>NFA Member &amp; Coach Message Board</h2>
-        </div>
-        <button class="btn-gold" onclick="toggleModal(true)">+ New Discussion Thread</button>
-      </div>
 
-      <div class="filter-bar">
-        <input type="text" id="board-search" class="search-input" placeholder="Search discussion threads, topics, or authors..." oninput="renderThreads()" />
-        <select id="board-category" class="select-input" onchange="renderThreads()">
-          <option value="all">All Categories</option>
-          <option value="Tournament">National Tournament</option>
-          <option value="LD Debate">Lincoln-Douglas Debate</option>
-          <option value="Pedagogy">Coaching &amp; Pedagogy</option>
-          <option value="Research">NFJ &amp; Calls for Papers</option>
-        </select>
-      </div>
-
-      <div id="thread-container" class="thread-list"></div>
-    </section>
 
     <!-- ================= ARCHIVES TAB ================= -->
     <section id="tab-archives" class="tab-section">
@@ -1050,12 +1028,7 @@
       document.getElementById('info-modal').classList.remove('open');
     }
 
-    // Initial data for Message Board
-    const threads = [
-      { title: "NCA 2026 New Orleans — NFA Business Meeting & Panel Schedule", category: "Tournament", author: "NFA Executive Council", date: "Nov 2026", replies: 14 },
-      { title: "Reminder: Complete the NFA Equity & Inclusion Audit Survey", category: "Pedagogy", author: "NFA EDI Committee", date: "Recent", replies: 9 },
-      { title: "SpeechWire E-Ballot Setup & Judge Check-In Tips", category: "Tournament", author: "Tournament Administration", date: "Recent", replies: 22 }
-    ];
+    
 
     // Initial data for Searchable Archives based on actual NFA documents & NFJ Vol. 39
     const archives = [
