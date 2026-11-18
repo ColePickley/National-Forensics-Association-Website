@@ -7,7 +7,7 @@
   --line: #dde2ec;
   --text: #331c1c;
   --muted: #6a7389;
-  --accent: #ce3b3b;
+  --accent: #3b42ce;
   --accent-text: #ffffff;
   --danger: #c0353f;
   --sidebar-w: 270px;
@@ -21,7 +21,7 @@
     --line: #472b2b;
     --text: #e6e9f2;
     --muted: #b08d8d;
-    --accent: #8b86ff;
+    --accent: #ff8686;
     --accent-text: #1f1212;
     --danger: #ff7a84;
   }
