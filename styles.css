@@ -387,3 +387,205 @@ footer {
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+/* About page layout */
+.about-layout {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Table of Contents */
+.topic-sidebar {
+  position: sticky;
+  top: 96px;
+  padding: 1.25rem;
+  background: var(--navy-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+}
+
+.topic-sidebar summary {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-gold);
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.topic-sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.topic-sidebar a {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  color: var(--slate);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.topic-sidebar a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+/* About section panels */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-content > section {
+  padding: 2rem;
+  background: var(--navy-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+}
+
+.about-content h2 {
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-gold);
+  font-size: 1.5rem;
+}
+
+.about-content h3 {
+  margin: 1.25rem 0 0.6rem;
+  color: var(--gold);
+  font-size: 1.15rem;
+}
+
+.about-content p {
+  margin-bottom: 1rem;
+  color: var(--slate);
+  font-size: 0.96rem;
+}
+
+/* Document previews and download links */
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.document-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1rem;
+  background: rgba(17, 17, 17, 0.8);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius);
+}
+
+.document-grid iframe {
+  width: 100%;
+  height: 240px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+}
+
+.document-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.document-links > a:first-child {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.document-links > a:first-child:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+/* National Council and Standing Committees tables */
+.about-content .council-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0 1.5rem;
+  background: rgba(17, 17, 17, 0.75);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius);
+}
+
+.about-content .council-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.93rem;
+}
+
+.about-content .council-table thead tr {
+  background: linear-gradient(
+    90deg,
+    rgba(74, 23, 23, 0.75),
+    rgba(17, 17, 17, 0.95)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.about-content .council-table th {
+  padding: 0.85rem 1rem;
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.about-content .council-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--slate);
+  vertical-align: top;
+}
+
+.about-content .council-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Elections and ad hoc committee lists */
+.election-list {
+  margin: 0.5rem 0 1.25rem 1.4rem;
+  color: var(--slate);
+  font-size: 0.95rem;
+}
+
+.election-list li {
+  margin-bottom: 0.45rem;
+}
+
+/* NFA Social Groups */
+.social-groups .card {
+  margin-bottom: 1rem;
+}
+
+/* Mobile layout for about page */
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topic-sidebar {
+    position: static;
+  }
+}
