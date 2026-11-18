@@ -1,13 +1,13 @@
 :root {
-  --ink: #1b2236;
-  --ink-soft: #2a3350;
-  --ink-text: #c9d1e8;
-  --paper: #f2f4f8;
+  --ink: #361b1b;
+  --ink-soft: #502a2a;
+  --ink-text: #e8c9c9;
+  --paper: #f8f2f2;
   --card: #ffffff;
   --line: #dde2ec;
-  --text: #1c2233;
+  --text: #331c1c;
   --muted: #6a7389;
-  --accent: #4c46d9;
+  --accent: #ce3b3b;
   --accent-text: #ffffff;
   --danger: #c0353f;
   --sidebar-w: 270px;
@@ -16,13 +16,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #12161f;
-    --card: #1b2130;
-    --line: #2b3347;
+    --paper: #1f1212;
+    --card: #301b1b;
+    --line: #472b2b;
     --text: #e6e9f2;
-    --muted: #8d97b0;
+    --muted: #b08d8d;
     --accent: #8b86ff;
-    --accent-text: #12161f;
+    --accent-text: #1f1212;
     --danger: #ff7a84;
   }
 }
@@ -125,7 +125,7 @@ textarea { resize: vertical; }
 .thread-btn:hover { background: var(--ink-soft); }
 .thread-btn[aria-current="true"] {
   background: var(--ink-soft);
-  border-left-color: #a9a5ff;
+  border-left-color: #ffa5a5;
   color: #fff;
   font-weight: 600;
 }
@@ -139,7 +139,7 @@ textarea { resize: vertical; }
   font-size: 0.875rem;
 }
 .sidebar-foot span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sidebar-foot .link { color: #b9b6ff; flex-shrink: 0; }
+.sidebar-foot .link { color: #ffb6b6; flex-shrink: 0; }
 
 .main {
   display: flex;
