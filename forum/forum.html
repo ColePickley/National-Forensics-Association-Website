@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sign in / sign up (shown until a session exists) -->
+  <div id="auth" class="auth" hidden>
+    <form id="auth-form" class="auth-card">
+      <h1 id="auth-title">Sign in</h1>
+      <label id="name-field" hidden>Display name
+        <input id="auth-name" type="text" autocomplete="nickname">
+      </label>
+      <label>Email
+        <input id="auth-email" type="email" required autocomplete="email">
+      </label>
+      <label id="phone-field" hidden>Phone number (optional)
+        <input id="auth-phone" type="tel" autocomplete="tel">
+      </label>
+      <label>Password
+        <input id="auth-password" type="password" required minlength="6" autocomplete="current-password">
+      </label>
+      <p id="auth-msg" class="msg" role="alert"></p>
+      <button id="auth-submit" type="submit" class="primary">Sign in</button>
+      <button id="auth-toggle" type="button" class="link">Need an account? Sign up</button>
+    </form>
+  </div>
+
+  <div id="app" class="app" hidden>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-head">
+        <h2>Threads</h2>
+      </div>
+      <nav id="thread-list" class="thread-list" aria-label="Threads"></nav>
+      <div class="sidebar-foot">
+        <span id="whoami"></span>
+        <button id="signout" type="button" class="link">Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-head">
+        <button id="menu-btn" type="button" class="menu-btn" aria-label="Show threads">Threads</button>
+        <div>
+          <h1 id="thread-title">Select a thread</h1>
+          <p id="thread-desc" class="desc"></p>
+        </div>
+      </header>
+
+      <section id="posts" class="posts" aria-live="polite">
+        <p class="empty">Pick a thread from the sidebar to read and post.</p>
+      </section>
+
+      <!-- Always-visible composer -->
+      <form id="composer" class="composer">
+        <input id="post-subject" type="text" placeholder="Subject" maxlength="150" required disabled>
+        <textarea id="post-text" placeholder="Write your post…" rows="2" required disabled></textarea>
+        <div class="composer-row">
+          <span id="composer-msg" class="msg" role="alert"></span>
+          <button id="post-submit" type="submit" class="primary" disabled>Post</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
