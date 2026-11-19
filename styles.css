@@ -33,6 +33,11 @@ body {
   line-height: 1.6;
 }
 
+/*makes all hyperlinks white for consistency*/
+a {
+  color: white;
+}
+
 h1, h2, h3, .serif {
   font-family: 'Georgia', serif;
   color: var(--gold);
@@ -579,6 +584,23 @@ footer {
   margin-bottom: 1rem;
 }
 
+/*competition.html data table tag */
+.data-table {
+  margin: 0.75rem 0 0;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  padding-left: 0;
+}
+
 /* Mobile layout for about page */
 @media (max-width: 900px) {
   .about-layout {
@@ -589,3 +611,4 @@ footer {
     position: static;
   }
 }
+
