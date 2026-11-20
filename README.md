@@ -1,4 +1,13 @@
-# How to set up Supabase for this website:
+# How to set up this website!
+
+## Table of contents:
+- [Setting up supabase](#Setting-up-Supabase)
+- [How to create a new forum thread](#How-to-create-a-new-forum-thread)
+- [How to make a user an admin](#How-to-make-a-user-an-admin)
+- [How to ban a user](#How-to-ban-a-user)
+- [Contact Form: Notes for the Site Owner](#Contact-Form:-Notes-for-the-Site-Owner)
+
+## Setting up Supabase
 
 ### 1. Go to the [Supabase website](https://supabase.com/) and create an account.
 
@@ -18,7 +27,9 @@ Go to *Storage -> Files -> Policies* and select *New policy* next to the *Archiv
 
 Finally, hit *Review* and then *Save*.
 
-### 5. Go to the *SQL Editor* tab and paste the following SQL code:
+### 5. Create the database.
+
+Go to the *SQL Editor* tab and paste the following SQL code then hit *Run* in the upper right corner.
 
 ```bash
 /*
@@ -100,15 +111,19 @@ create policy "users delete own posts, admins delete any"
     using (user_id = auth.uid() or public.is_admin());
 ```
 
-### 6. Hit *Run* in the upper right corner.
-
-### 7. Update the website for your specific Supabase project.
+### 6. Update the website for your specific Supabase project.
 
 Go to the *forum.js* and *archives.js* files found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
 
+### 7. Update the email confirmation link.
+
+After the website has been published, go to *Authentication -> URL Configuration* in Supabase and change the *Site URL* to the URL for the forum page.
+
 ### You're all set!
 
-# How to create a new thread:
+
+
+## How to create a new forum thread
 
 ### 1. Go to the *Table Editor* tab in your Supabase project.
 
@@ -120,7 +135,9 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 ### 5. Hit *Save*!
 
-# How to make a user an admin:
+
+
+## How to make a user an admin
 
 ### 1. Go to the *Table Editor* tab in your Supabase project.
 
@@ -130,7 +147,9 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 ### 4. Change the *is_admin* value to *TRUE* and hit *Save*!
 
-# How to ban a user:
+
+
+## How to ban a user
 
 ### 1. Go to the *Authentication* tab in your Supabase project.
 
@@ -144,7 +163,7 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 
 
-## Contact Form – Notes for the Site Owner
+## Contact Form: Notes for the Site Owner
 
 The Contact page sends messages to email using **Web3Forms** (web3forms.com), a free service. There is no server or database to manage. Below is what you may need to change.
 
