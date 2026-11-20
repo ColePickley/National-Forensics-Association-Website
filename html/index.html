@@ -6,6 +6,26 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self';" />
   <title>National Forensic Association | Official Portal</title>
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* Homepage only: keep old tab sections and pop-ups hidden until opened */
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(17, 17, 17, 0.85); backdrop-filter: blur(6px);
+      display: none; justify-content: center; align-items: center; z-index: 200; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: radial-gradient(circle at top, var(--navy) 0%, var(--navy-dark) 85%);
+      border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius-lg);
+      max-width: 600px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+    .modal p, .modal li { color: var(--slate); font-size: 0.95rem; }
+    .modal ul { margin: 0.75rem 0 1.25rem 1.25rem; }
+    .modal li { margin-bottom: 0.45rem; }
+  </style>
 </head>
 <body>
 
