@@ -8,20 +8,20 @@ const state = {
   user: null,
   profile: null,
   threads: [],
-  current: null, // thread name
+  current: null,
   signUp: false,
   loadedFor: null,
 };
 
-/* ---------------- Auth ---------------- */
+/*
+User Authorization and Authentication
+*/
 
 function setAuthMode(signUp) {
   state.signUp = signUp;
   $("auth-title").textContent = signUp ? "Create account" : "Sign in";
   $("auth-submit").textContent = signUp ? "Sign up" : "Sign in";
-  $("auth-toggle").textContent = signUp
-    ? "Have an account? Sign in"
-    : "Need an account? Sign up";
+  $("auth-toggle").textContent = signUp ? "Have an account? Sign in" : "Need an account? Sign up";
   $("name-field").hidden = !signUp;
   $("phone-field").hidden = !signUp;
   $("auth-name").required = signUp;
@@ -74,10 +74,10 @@ $("auth-form").addEventListener("submit", async (e) => {
 
 $("signout").addEventListener("click", () => db.auth.signOut());
 
-// Ensure a row exists in public.users for this auth user.
+// Ensure a row exists in public.user for this auth user.
 async function ensureProfile(user) {
   const { data, error } = await db
-    .from("users")
+    .from("user")
     .select("*")
     .eq("user_id", user.id)
     .maybeSingle();
@@ -92,7 +92,7 @@ async function ensureProfile(user) {
     phone_number: meta.phone || null,
   };
   const { data: created, error: insErr } = await db
-    .from("users")
+    .from("user")
     .insert(row)
     .select()
     .single();
@@ -136,7 +136,9 @@ db.auth.onAuthStateChange((_event, session) => {
   setTimeout(() => handleSession(session), 0);
 });
 
-/* ---------------- Threads ---------------- */
+/*
+Forum Thread Management
+*/
 
 async function loadThreads() {
   const { data, error } = await db
@@ -187,13 +189,15 @@ async function selectThread(name) {
   await loadPosts(true);
 }
 
-/* ---------------- Posts ---------------- */
+/*
+Forum Post Management
+*/
 
 async function loadPosts(scrollToEnd = false) {
   const name = state.current;
   const { data, error } = await db
     .from("post")
-    .select("post_id, created_at, subject, text, thread_name, user_id, is_edited, edit_time, users(name)")
+    .select("post_id, created_at, subject, text, thread_name, user_id, is_edited, edit_time, user(name)")
     .eq("thread_name", name)
     .order("created_at", { ascending: true });
   if (name !== state.current) return; // user switched threads mid-request
@@ -232,7 +236,7 @@ function renderPost(p) {
 
   const meta = document.createElement("div");
   meta.className = "post-meta";
-  const author = p.users?.name || "Unknown user";
+  const author = p.user?.name || "Unknown user";
   meta.textContent = `${author} on ${fmt(p.created_at)}`;
   if (p.is_edited && p.edit_time) meta.textContent += ` (edited ${fmt(p.edit_time)})`;
 
