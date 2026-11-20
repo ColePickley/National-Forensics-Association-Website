@@ -13,9 +13,9 @@ const state = {
   loadedFor: null,
 };
 
-/*
+/*-----------------------------------------------------------------------------------------------------------
 User Authorization and Authentication
-*/
+-----------------------------------------------------------------------------------------------------------*/
 
 function setAuthMode(signUp) {
   state.signUp = signUp;
@@ -54,7 +54,6 @@ $("auth-form").addEventListener("submit", async (e) => {
       });
       if (error) throw error;
       if (!data.session) {
-        // Email confirmation is on in Supabase; the profile row is created at first sign-in.
         msg.className = "msg ok";
         msg.textContent = "Check your email to confirm your account, then sign in.";
         setAuthMode(false);
@@ -110,7 +109,7 @@ async function handleSession(session) {
     $("auth").hidden = false;
     return;
   }
-  if (state.loadedFor === session.user.id) return; // token refresh, nothing to redo
+  if (state.loadedFor === session.user.id) return;
   state.loadedFor = session.user.id;
   state.user = session.user;
 
@@ -132,13 +131,12 @@ async function handleSession(session) {
 }
 
 db.auth.onAuthStateChange((_event, session) => {
-  // Defer so we never await Supabase calls inside the auth callback.
   setTimeout(() => handleSession(session), 0);
 });
 
-/*
+/*-----------------------------------------------------------------------------------------------------------
 Forum Thread Management
-*/
+-----------------------------------------------------------------------------------------------------------*/
 
 async function loadThreads() {
   const { data, error } = await db
@@ -149,7 +147,6 @@ async function loadThreads() {
     $("thread-list").textContent = "Could not load threads: " + error.message;
     return;
   }
-  // Case-insensitive alphabetical order (the database sorts by collation).
   state.threads = data.sort((a, b) =>
     a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
   );
@@ -189,9 +186,9 @@ async function selectThread(name) {
   await loadPosts(true);
 }
 
-/*
+/*-----------------------------------------------------------------------------------------------------------
 Forum Post Management
-*/
+-----------------------------------------------------------------------------------------------------------*/
 
 async function loadPosts(scrollToEnd = false) {
   const name = state.current;
@@ -200,7 +197,7 @@ async function loadPosts(scrollToEnd = false) {
     .select("post_id, created_at, subject, text, thread_name, user_id, is_edited, edit_time, user(name)")
     .eq("thread_name", name)
     .order("created_at", { ascending: true });
-  if (name !== state.current) return; // user switched threads mid-request
+  if (name !== state.current) return;
 
   const box = $("posts");
   box.replaceChildren();
@@ -325,7 +322,9 @@ async function deletePost(p) {
   loadPosts();
 }
 
-/* ---------------- Composer ---------------- */
+/*----------------------------------------------------------------------------------------------------------- 
+Post Composer
+-----------------------------------------------------------------------------------------------------------*/
 
 $("composer").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -354,11 +353,8 @@ $("composer").addEventListener("submit", async (e) => {
   await loadPosts(true);
 });
 
-// Ctrl/Cmd + Enter sends from the text box
-$("post-text").addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) $("composer").requestSubmit();
-});
-
-/* ---------------- Mobile sidebar ---------------- */
+/*----------------------------------------------------------------------------------------------------------- 
+Mobile sidebar
+-----------------------------------------------------------------------------------------------------------*/
 
 $("menu-btn").addEventListener("click", () => $("sidebar").classList.toggle("open"));
