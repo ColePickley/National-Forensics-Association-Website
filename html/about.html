@@ -598,6 +598,17 @@
       </div>
     </div>
   </footer>
-
+  <script>
+    // Table of contents fix: stop scrolled-to sections just below the sticky header
+    function setHeaderOffset() {
+      const header = document.querySelector('header');
+      if (header) {
+        document.documentElement.style.scrollPaddingTop = (header.offsetHeight + 16) + 'px';
+      }
+    }
+    document.documentElement.style.scrollBehavior = 'smooth';
+    window.addEventListener('load', setHeaderOffset);
+    window.addEventListener('resize', setHeaderOffset);
+  </script>
 </body>
 </html>
