@@ -15,6 +15,7 @@ Go to *Storage -> Files -> Policies* and select *New policy* next to the *Archiv
 - Allowed operation: SELECT only
 - Target roles: leave blank for all roles
 - Policy definition (USING): bucket_id = 'Archive Files'
+
 Finally, hit *Review* and then *Save*.
 
 ### 5. Go to the *SQL Editor* tab and paste the following SQL code:
