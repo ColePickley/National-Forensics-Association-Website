@@ -5,201 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' mailto:;" />
   <title>Contact Us | National Forensic Association</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    .hero-graphic-box {
-      background: rgba(17, 17, 17, 0.75);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-graphic-box svg {
-      width: 100%;
-      max-width: 320px;
-      height: 135px;
-      display: block;
-    }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 1.75rem;
-      margin-bottom: 2.75rem;
-      align-items: start;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .form-group {
-      margin-bottom: 1.15rem;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.88rem;
-      color: var(--gold);
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-    .required-mark {
-      color: #e57373;
-      margin-left: 3px;
-    }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      background: rgba(17, 17, 17, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--white);
-      padding: 0.75rem 0.95rem;
-      border-radius: var(--radius);
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.65);
-      box-shadow: 0 0 0 3px rgba(74, 23, 23, 0.45);
-    }
-    .form-group select option {
-      background: var(--navy-dark);
-      color: var(--white);
-    }
-    .form-group textarea {
-      min-height: 145px;
-      resize: vertical;
-    }
-    .form-feedback {
-      display: none;
-      padding: 1.1rem 1.25rem;
-      border-radius: var(--radius);
-      margin-bottom: 1.25rem;
-      font-size: 0.95rem;
-    }
-    .form-feedback.error {
-      display: block;
-      background: rgba(120, 20, 20, 0.45);
-      border: 1px solid rgba(255, 130, 130, 0.45);
-      color: #ffd6d6;
-    }
-    .success-card {
-      display: none;
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      background: radial-gradient(circle at top, rgba(74, 23, 23, 0.55), rgba(17, 17, 17, 0.9));
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: var(--radius-lg);
-    }
-    .success-card.visible {
-      display: block;
-    }
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .social-card {
-      background: rgba(17, 17, 17, 0.78);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius);
-      padding: 1.15rem;
-      text-decoration: none;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 0.95rem;
-      transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
-    }
-    .social-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-hover);
-      background: linear-gradient(135deg, rgba(74, 23, 23, 0.55) 0%, rgba(17, 17, 17, 0.95) 100%);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
-    }
-    .social-icon-wrap {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(74, 23, 23, 0.8), rgba(17, 17, 17, 0.95));
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .social-icon-wrap svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--gold);
-    }
-    .social-meta strong {
-      display: block;
-      font-family: 'Georgia', serif;
-      font-size: 1.02rem;
-      color: var(--gold);
-      margin-bottom: 0.1rem;
-    }
-    .social-meta span {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--slate-muted);
-    }
-    .directory-list {
-      list-style: none;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-    .directory-item {
-      background: rgba(17, 17, 17, 0.72);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius);
-      padding: 1rem 1.15rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .directory-item strong {
-      display: block;
-      color: var(--gold);
-      font-size: 0.98rem;
-    }
-    .directory-item span {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--slate-muted);
-    }
-    .directory-item a {
-      color: var(--gold);
-      font-size: 0.88rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
-      padding-bottom: 2px;
-    }
-    .directory-item a:hover {
-      color: var(--white);
-      border-bottom-color: var(--white);
-    }
-    @media (max-width: 920px) {
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 560px) {
-      .form-row, .social-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="../css/contact.css"/>
 </head>
 <body>
 
@@ -219,7 +26,7 @@
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
-        <img src="cropped-nfa-red-bubble.png" alt="NFA Crest" class="brand-logo" />
+        <img src="../images/nfa_logo.png" alt="NFA Crest" class="brand-logo" />
         <div class="brand-text">
           <span>Established 1971</span>
           <strong>NATIONAL FORENSIC ASSOCIATION</strong>
@@ -231,7 +38,7 @@
         <a href="about.html" class="tab-btn">About</a>
         <a href="competition.html" class="tab-btn">Competition &amp; LD</a>
         <a href="research.html" class="tab-btn">Research &amp; NFJ</a>
-        <a href="forum/forum.html" class="tab-btn" target="_blank">Member Forum</a>
+        <a href="forum.html" class="tab-btn" target="_blank">Member Forum</a>
         <a href="archives.html" class="tab-btn">Search Archives</a>
         <a href="tournament.html" class="tab-btn">Tournament</a>
         <a href="equity-and-inclusion-audit-survey.html" class="tab-btn">Equity And Inclusion Audit Survey</a>
@@ -440,63 +247,6 @@
     </div>
   </footer>
 
-  <script>
-    const contactForm = document.getElementById('nfa-contact-form');
-    const errorBanner = document.getElementById('form-error-banner');
-    const successCard = document.getElementById('contact-success-card');
-    const confirmationSummary = document.getElementById('confirmation-summary');
-    const sendEmailCopy = document.getElementById('send-email-copy');
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('contact-name').value.trim();
-      const email = document.getElementById('contact-email').value.trim();
-      const school = document.getElementById('contact-school').value.trim();
-      const topic = document.getElementById('contact-topic').value;
-      const message = document.getElementById('contact-message').value.trim();
-
-      if (!name || !isValidEmail(email) || !message) {
-        errorBanner.classList.add('error');
-        errorBanner.style.display = 'block';
-        return;
-      }
-
-      errorBanner.style.display = 'none';
-
-      const targetEmail = topic === 'National Forensic Journal (NFJ)'
-        ? 'nfajournal@gmail.com'
-        : 'nfatournamentcommittee@gmail.com';
-
-      const subject = encodeURIComponent(`[NFA Contact - ${topic}] From ${name}`);
-      const bodyLines = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        school ? `Institution: ${school}` : null,
-        `Department: ${topic}`,
-        '',
-        'Message:',
-        message
-      ].filter(Boolean).join('\n');
-
-      sendEmailCopy.href = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
-
-      confirmationSummary.textContent = `Thank you, ${name}. Your inquiry regarding "${topic}" has been prepared for ${targetEmail}. You can also launch your default mail client below to send an immediate direct copy.`;
-
-      contactForm.style.display = 'none';
-      successCard.classList.add('visible');
-    });
-
-    function resetContactForm() {
-      contactForm.reset();
-      errorBanner.style.display = 'none';
-      successCard.classList.remove('visible');
-      contactForm.style.display = 'block';
-    }
-  </script>
+  <script src="../js/contact.js"></script>
 </body>
 </html>
