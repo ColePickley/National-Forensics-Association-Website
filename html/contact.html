@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' mailto:;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.web3forms.com; base-uri 'self'; form-action 'self' mailto:;" />
   <title>Contact Us | National Forensic Association</title>
   <link rel="stylesheet" href="../css/styles.css"/>
   <link rel="stylesheet" href="../css/contact.css"/>
@@ -135,7 +135,7 @@
         </form>
 
         <div id="contact-success-card" class="success-card" role="status" aria-live="polite">
-          <span class="badge badge-crimson" style="margin: 0 auto 1rem;">Message Logged</span>
+          <span class="badge badge-crimson" style="margin: 0 auto 1rem;">Message Sent</span>
           <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem;">Thank you for your response.</h3>
           <p id="confirmation-summary" style="max-width: 480px; margin: 0 auto 1.5rem;"></p>
           <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
