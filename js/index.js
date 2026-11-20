@@ -10,7 +10,7 @@ const featureDetails = {
     ballot: {
     badge: "Governance & E-Ballot Procedures",
     title: "NFA May Ballot & Tournament E-Ballot Guide",
-    url: "https://nationalforensicassociation.org/may-2026-ballot/",
+    url: "ballot.html",
     html: `
         <p>Each member institution's designated voting delegate casts the official electronic ballot covering NFA leadership, committee representation, and Lincoln-Douglas policy debate topic selection:</p>
         <ul>
