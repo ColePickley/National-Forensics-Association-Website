@@ -1,4 +1,29 @@
-const ARCHIVE_FOLDER = "../archives";
+// ---------------------------------------------------------------------------
+// SUPABASE STORAGE
+// All archive files live in the public bucket "Archive Files", split into three
+// folders by file type:  txt/   pdf/   docx/
+// ---------------------------------------------------------------------------
+const SUPABASE_URL = "https://bjytsccuaftifejjpeyb.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_wFNApyLi4CcWKEaf2EbkIg_nJQX7_DW";
+const ARCHIVE_BUCKET = "Archive Files";
+const ARCHIVE_FOLDERS = ["txt", "pdf", "docx"];
+
+// Which folder a file belongs in, based on its extension
+function folderFor(fileName) {
+    const ext = fileName.split('.').pop().toLowerCase();
+    return ARCHIVE_FOLDERS.includes(ext) ? ext : 'txt';
+}
+
+// Public link to a file, e.g. .../object/public/Archive%20Files/pdf/2017%20NFA%20COMPLETE%20RESULTS.pdf
+function storageUrl(fileName, folder = folderFor(fileName)) {
+    return `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(ARCHIVE_BUCKET)}/${folder}/${encodeURIComponent(fileName)}`;
+}
+
+// Same link, but the browser saves it instead of opening it
+// (the plain "download" attribute is ignored for files on another website)
+function storageDownloadUrl(fileName, folder = folderFor(fileName)) {
+    return `${storageUrl(fileName, folder)}?download=${encodeURIComponent(fileName)}`;
+}
 
 const archives = [
     {
@@ -7,7 +32,7 @@ const archives = [
     year: "2023",
     desc: "Official Constitution of the National Forensic Association governing membership, officers, and council procedures.",
     fileName: "nfa-constitution.txt",
-    url: `${ARCHIVE_FOLDER}/nfa-constitution.txt`
+    url: storageUrl("nfa-constitution.txt")
     },
     {
     title: "NFA Bylaws & Tournament Procedures",
@@ -15,7 +40,7 @@ const archives = [
     year: "2023",
     desc: "Complete rules on student eligibility, qualification criteria, section sizing, judge placement, and 1–30 rating scales.",
     fileName: "nfa-bylaws.txt",
-    url: `${ARCHIVE_FOLDER}/nfa-bylaws.txt`
+    url: storageUrl("nfa-bylaws.txt")
     },
     {
     title: "12. Lincoln-Douglas Debate Event Description",
@@ -23,7 +48,7 @@ const archives = [
     year: "2022",
     desc: "Official stock issues paradigm (Harms, Inherency, Solvency, Topicality), evidence verification rules, and delivery standards.",
     fileName: "ld-description.txt",
-    url: `${ARCHIVE_FOLDER}/ld-description.txt`
+    url: storageUrl("ld-description.txt")
     },
     {
     title: "NFA Hall of Fame Inductees Archive (1971–Present)",
@@ -31,7 +56,7 @@ const archives = [
     year: "1971–2026",
     desc: "Historical roster of Hall of Fame members and annual January 15 nomination guidelines.",
     fileName: "hall-of-fame.txt",
-    url: `${ARCHIVE_FOLDER}/hall-of-fame.txt`
+    url: storageUrl("hall-of-fame.txt")
     },
     {
     title: "Cultivating Success: Exploring Mentorship in Collegiate Speech & Debate",
@@ -39,7 +64,7 @@ const archives = [
     year: "2026",
     desc: "By Vanessa Fowler — Published in National Forensic Journal, Volume 39 (2026).",
     fileName: "cultivating-success-fowler.txt",
-    url: `${ARCHIVE_FOLDER}/cultivating-success-fowler.txt`
+    url: storageUrl("cultivating-success-fowler.txt")
     },
     {
     title: "Aligning Vision: Issues Facing Disability Accommodation in the Forensics Space",
@@ -47,12 +72,13 @@ const archives = [
     year: "2026",
     desc: "By Ryan Corcoran — Special Forum on Accessibility in Collegiate Forensics, NFJ Volume 39.",
     fileName: "aligning-vision-corcoran.txt",
-    url: `${ARCHIVE_FOLDER}/aligning-vision-corcoran.txt`
+    url: storageUrl("aligning-vision-corcoran.txt")
     }
 ];
 
-// National Tournament results, one .txt per year in archives/ (e.g. archives/1971.txt)
-// To add a year: drop the file in archives/ and add a row here.
+// National Tournament results, one .txt per year in the bucket's txt/ folder (e.g. txt/1971.txt)
+// To add a year: upload the file to txt/ and add a row here (or just upload it and
+// let the automatic list below make a plain card for it).
 // [year, host school, team sweepstakes champion, pentathlon champion, optional note]
 // Use null for anything a year's file doesn't have.
 const NATIONALS = [
@@ -113,34 +139,27 @@ NATIONALS.forEach(([year, host, team, penta, note]) => {
     year: year,
     desc: parts.join(' '),
     fileName: `${year}.txt`,
-    url: `${ARCHIVE_FOLDER}/${year}.txt`
+    url: storageUrl(`${year}.txt`)
     });
 });
 
-// PDF and Word documents. Clicking opens the original file.
-// searchText (optional) is a hidden plain-text copy in archives/search/ so the
-// search box can find names inside the file. Visitors never see it.
+// PDF and Word documents (bucket folders pdf/ and docx/). Clicking opens or downloads the original.
+// The search box matches their title, description and year (not the text inside the file).
 const FILE_DOCS = [
     { title: "2017 Complete Tournament Results", year: "2017", kind: "pdf", file: "2017 NFA COMPLETE RESULTS.pdf",
-    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (113 pages).",
-    searchText: "2017 NFA COMPLETE RESULTS.txt" },
+    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (113 pages)." },
     { title: "2016 Complete Tournament Results", year: "2016", kind: "pdf", file: "2016 NFA COMPLETE RESULTS.pdf",
-    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (117 pages).",
-    searchText: "2016 NFA COMPLETE RESULTS.txt" },
+    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (117 pages)." },
     { title: "2015 Complete Tournament Results", year: "2015", kind: "pdf", file: "2015 NFA COMPLETE RESULTS.pdf",
     desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (128 pages)." },
     { title: "2014 Complete Tournament Results", year: "2014", kind: "pdf", file: "2014 NFA COMPLETE RESULTS.pdf",
-    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (214 pages).",
-    searchText: "2014 NFA COMPLETE RESULTS.txt" },
+    desc: "Full tabulation for every event: preliminary scores, elimination rounds and final placings (214 pages)." },
     { title: "Interpretation Champions (1971–2013)", year: "1971–2013", kind: "docx", file: "NFA Interp Champions.docx",
-    desc: "Year-by-year national champions in Prose, Poetry, Duo and the other interpretation events.",
-    searchText: "NFA Interp Champions.txt" },
+    desc: "Year-by-year national champions in Prose, Poetry, Duo and the other interpretation events." },
     { title: "Public Address Champions (1971–2013)", year: "1971–2013", kind: "docx", file: "NFA PA champions.docx",
-    desc: "Year-by-year national champions in Informative, Persuasive, After Dinner Speaking and Rhetorical Criticism.",
-    searchText: "NFA PA champions.txt" },
+    desc: "Year-by-year national champions in Informative, Persuasive, After Dinner Speaking and Rhetorical Criticism." },
     { title: "Limited Prep & Lincoln-Douglas Champions (1971–2013)", year: "1971–2013", kind: "docx", file: "NFA LP Champions.docx",
-    desc: "Year-by-year national champions in Extemporaneous Speaking, Impromptu and Lincoln-Douglas Debate.",
-    searchText: "NFA LP Champions.txt" }
+    desc: "Year-by-year national champions in Extemporaneous Speaking, Impromptu and Lincoln-Douglas Debate." }
 ];
 
 FILE_DOCS.forEach(d => {
@@ -151,69 +170,101 @@ FILE_DOCS.forEach(d => {
     desc: d.desc,
     kind: d.kind,
     fileName: d.file,
-    url: `${ARCHIVE_FOLDER}/${encodeURIComponent(d.file)}`,
-    textUrl: d.searchText ? `${ARCHIVE_FOLDER}/search/${encodeURIComponent(d.searchText)}` : undefined
+    url: d.kind === 'docx' ? storageDownloadUrl(d.file) : storageUrl(d.file)
     });
 });
 // ---------------------------------------------------------------------------
 // AUTOMATIC FILE LIST
-// GitHub writes archives/index.json every time someone pushes a change to the
-// archives folder (see .github/workflows/archive-list.yml). The page shows a
-// card for every file in that list:
+// On page load we ask Supabase which files are in txt/, pdf/ and docx/, and show
+// a card for every one of them:
 //   - files described above (NATIONALS, FILE_DOCS, etc.) keep their descriptions
-//   - new files get an automatic card from their file name
-//   - entries above whose file isn't in the folder are hidden
-// If index.json can't be loaded, the page keeps the hand-written list above.
+//   - new files get an automatic card made from their file name
+//   - entries above whose file isn't in the bucket are hidden
+// If the list can't be loaded, the page keeps the hand-written list above.
+//
+// NOTE: listing files needs a read (SELECT) policy on storage.objects for this bucket,
+// even though the bucket is public. See the setup SQL in the notes that came with this file.
 // ---------------------------------------------------------------------------
-const ARCHIVE_EXTENSIONS = ['txt', 'pdf', 'docx', 'doc'];
 
-function autoArchiveEntry(fileName, searchFiles) {
-    const ext = fileName.split('.').pop().toLowerCase();
-    if (!ARCHIVE_EXTENSIONS.includes(ext)) return null;
+// Every file name in one folder of the bucket (handles buckets with more than 1000 files)
+async function listBucketFolder(folder) {
+    const names = [];
+    const pageSize = 1000;
+    for (let offset = 0; ; offset += pageSize) {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${encodeURIComponent(ARCHIVE_BUCKET)}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                apikey: SUPABASE_ANON_KEY,
+                Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({
+                prefix: folder,
+                limit: pageSize,
+                offset,
+                sortBy: { column: 'name', order: 'asc' }
+            })
+        });
+        if (!res.ok) throw new Error(`Listing ${folder}/ failed (HTTP ${res.status})`);
+        const rows = await res.json();
+        rows.forEach(r => {
+            // Subfolders come back with no id; "." files are Supabase placeholders
+            if (r.id && r.name && !r.name.startsWith('.')) names.push(r.name);
+        });
+        if (rows.length < pageSize) break;
+    }
+    return names;
+}
 
+function autoArchiveEntry(fileName, folder) {
     const base = fileName.replace(/\.[^.]+$/, '');
     const isYearFile = /^\d{4}$/.test(base);             // e.g. 2019.txt
     const yearMatch = base.match(/(19|20)\d{2}/);        // first 4-digit year in the name
-    const kind = ext === 'txt' ? undefined : (ext === 'pdf' ? 'pdf' : 'docx');
-    const searchName = `${base}.txt`;
+    const kind = folder === 'txt' ? undefined : folder;  // 'pdf' | 'docx'
 
     return {
         title: isYearFile ? `${base} National Tournament Results` : base.replace(/[-_]+/g, ' '),
         type: isYearFile ? 'History' : 'Text Archive',
         year: yearMatch ? yearMatch[0] : 'Archive',
-        desc: kind ? `${ext.toUpperCase()} document from the NFA archives.` : 'Text document from the NFA archives.',
+        desc: kind ? `${kind.toUpperCase()} document from the NFA archives.` : 'Text document from the NFA archives.',
         kind,
         fileName,
-        url: `${ARCHIVE_FOLDER}/${encodeURIComponent(fileName)}`,
-        textUrl: kind && searchFiles.has(searchName.toLowerCase())
-            ? `${ARCHIVE_FOLDER}/search/${encodeURIComponent(searchName)}`
-            : undefined
+        url: kind === 'docx' ? storageDownloadUrl(fileName, folder) : storageUrl(fileName, folder)
     };
 }
 
 async function loadArchiveFileList() {
     try {
-        const res = await fetch(`${ARCHIVE_FOLDER}/index.json`, { cache: 'no-store' });
-        if (!res.ok) return;                        // no list yet: keep the hand-written one
-        const list = await res.json();
-        const files = Array.isArray(list.files) ? list.files : [];
-        const inFolder = new Set(files.map(f => f.toLowerCase()));
-        const searchFiles = new Set((list.search || []).map(f => f.toLowerCase()));
+        const [txt, pdf, docx] = await Promise.all(ARCHIVE_FOLDERS.map(listBucketFolder));
+        if (txt.length + pdf.length + docx.length === 0) return;   // nothing came back: keep the hand-written list
+
+        const inBucket = new Set([
+            ...txt.map(f => `txt/${f.toLowerCase()}`),
+            ...pdf.map(f => `pdf/${f.toLowerCase()}`),
+            ...docx.map(f => `docx/${f.toLowerCase()}`)
+        ]);
 
         // Described files that exist, in their original order...
-        const described = archives.filter(a => a.fileName && inFolder.has(a.fileName.toLowerCase()));
-        const describedNames = new Set(described.map(a => a.fileName.toLowerCase()));
+        const described = archives.filter(a =>
+            a.fileName && inBucket.has(`${folderFor(a.fileName)}/${a.fileName.toLowerCase()}`)
+        );
+        const describedKeys = new Set(described.map(a => `${folderFor(a.fileName)}/${a.fileName.toLowerCase()}`));
+
         // ...then any new files, newest year first
-        const added = files
-            .filter(f => !describedNames.has(f.toLowerCase()))
-            .map(f => autoArchiveEntry(f, searchFiles))
-            .filter(Boolean)
+        const added = [
+            ...txt.map(f => ['txt', f]),
+            ...pdf.map(f => ['pdf', f]),
+            ...docx.map(f => ['docx', f])
+        ]
+            .filter(([folder, f]) => !describedKeys.has(`${folder}/${f.toLowerCase()}`))
+            .map(([folder, f]) => autoArchiveEntry(f, folder))
             .sort((a, b) => b.year.localeCompare(a.year) || a.title.localeCompare(b.title));
 
         archives.length = 0;
         archives.push(...described, ...added);
     } catch (e) {
-        /* index.json missing or unreadable: keep the hand-written list */
+        /* couldn't list the bucket: keep the hand-written list */
+        console.warn('Archive list not loaded from Supabase; using the built-in list.', e);
     }
 }
 // Makes text safe to put inside the page (a .txt file could contain HTML)
@@ -268,47 +319,6 @@ function matchSnippet(text, q) {
     return highlight(line, q) + (more > 0 ? ` <em>(+${more} more)</em>` : '');
 }
 
-async function handleFolderSelect(event) {
-    const files = Array.from(event.target.files).filter(file =>
-    file.name.toLowerCase().endsWith('.txt')
-    );
-
-    if (files.length === 0) {
-    document.getElementById('folder-status').textContent = 'No .txt files found in the selected folder.';
-    return;
-    }
-
-    for (const file of files) {
-    const textContent = decodeText(await file.arrayBuffer());
-    const blobUrl = URL.createObjectURL(file);
-
-    const existingItem = archives.find(
-        a => a.fileName && a.fileName.toLowerCase() === file.name.toLowerCase()
-    );
-
-    if (existingItem) {
-        existingItem.rawText = textContent;
-        existingItem.url = blobUrl;
-    } else {
-        const cleanTitle = file.name.replace(/\.txt$/i, '').replace(/[-_]/g, ' ');
-        const snippet = textContent.trim().slice(0, 160) + (textContent.length > 160 ? '...' : '');
-
-        archives.unshift({
-        title: cleanTitle,
-        type: "Text Archive",
-        year: new Date(file.lastModified).getFullYear().toString(),
-        desc: snippet || "Text document from local archives folder.",
-        url: blobUrl,
-        rawText: textContent,
-        fileName: file.name
-        });
-    }
-    }
-
-    document.getElementById('folder-status').innerHTML = `Loaded <strong>${files.length}</strong> text document(s) from <code>${ARCHIVE_FOLDER}/</code>.`;
-    renderArchives();
-}
-
 async function viewTextDoc(index) {
     const item = currentFiltered[index];
     const modal = document.getElementById('doc-modal');
@@ -316,7 +326,7 @@ async function viewTextDoc(index) {
     const bodyEl = document.getElementById('modal-body');
 
     titleEl.textContent = item.title;
-    bodyEl.textContent = "Loading text document from " + item.url + "...";
+    bodyEl.textContent = "Loading text document...";
     modal.classList.add('active');
 
         // Shows the text with the current search highlighted, scrolled to the first match
@@ -340,7 +350,7 @@ async function viewTextDoc(index) {
     item.rawText = text;
     showText(text);
     } catch (err) {
-    bodyEl.textContent = `Could not auto-fetch "${item.url}".\n\nTip: Make sure the file exists inside the "${ARCHIVE_FOLDER}/" folder next to archives.html, or use the "Open archives Folder (.txt)" button at the top of the page to load local files directly from your computer.\n\nDetails: ${err.message}`;
+    bodyEl.textContent = `Could not auto-fetch "${item.url}".\n\nTip: Make sure the file exists in the "txt" folder of the "${ARCHIVE_BUCKET}" Supabase bucket.\n\nDetails: ${err.message}`;
     }
 }
 
@@ -419,8 +429,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     renderArchives();
     await Promise.all(archives.map(async a => {
     if (a.rawText !== undefined) return;
-    const source = a.kind ? a.textUrl : a.url;
-    if (!source) return;
+    if (a.kind) return;           // PDF/Word files: searched by title/description only
+    const source = a.url;
     try {
         const res = await fetch(source);
         if (res.ok) a.rawText = decodeText(await res.arrayBuffer());
