@@ -86,4 +86,8 @@ create policy "users delete own posts, admins delete any"
     using (user_id = auth.uid() or public.is_admin());
 ```
 
+### 4. Update the website for your specific Supabase project.
+
+Go to the *forum.js* file found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
+
 ## You're all set!
