@@ -1,0 +1,44 @@
+name: Update archive file list
+
+# Runs whenever someone pushes a change inside the archives folder
+on:
+  push:
+    paths:
+      - "archives/**"
+      - "!archives/index.json"
+  workflow_dispatch:   # also adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  build-list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write archives/index.json
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          files = sorted(
+              f for f in os.listdir("archives")
+              if os.path.isfile(os.path.join("archives", f))
+              and f != "index.json" and not f.startswith(".")
+          )
+          search_dir = os.path.join("archives", "search")
+          search = sorted(
+              f for f in os.listdir(search_dir)
+              if os.path.isfile(os.path.join(search_dir, f))
+          ) if os.path.isdir(search_dir) else []
+          with open("archives/index.json", "w", encoding="utf-8") as fh:
+              json.dump({"files": files, "search": search}, fh, indent=2)
+          EOF
+
+      - name: Save the list back to the repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add archives/index.json
+          git diff --cached --quiet || git commit -m "Update archive file list [skip ci]"
+          git push

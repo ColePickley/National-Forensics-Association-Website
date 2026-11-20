@@ -155,7 +155,67 @@ FILE_DOCS.forEach(d => {
     textUrl: d.searchText ? `${ARCHIVE_FOLDER}/search/${encodeURIComponent(d.searchText)}` : undefined
     });
 });
+// ---------------------------------------------------------------------------
+// AUTOMATIC FILE LIST
+// GitHub writes archives/index.json every time someone pushes a change to the
+// archives folder (see .github/workflows/archive-list.yml). The page shows a
+// card for every file in that list:
+//   - files described above (NATIONALS, FILE_DOCS, etc.) keep their descriptions
+//   - new files get an automatic card from their file name
+//   - entries above whose file isn't in the folder are hidden
+// If index.json can't be loaded, the page keeps the hand-written list above.
+// ---------------------------------------------------------------------------
+const ARCHIVE_EXTENSIONS = ['txt', 'pdf', 'docx', 'doc'];
 
+function autoArchiveEntry(fileName, searchFiles) {
+    const ext = fileName.split('.').pop().toLowerCase();
+    if (!ARCHIVE_EXTENSIONS.includes(ext)) return null;
+
+    const base = fileName.replace(/\.[^.]+$/, '');
+    const isYearFile = /^\d{4}$/.test(base);             // e.g. 2019.txt
+    const yearMatch = base.match(/(19|20)\d{2}/);        // first 4-digit year in the name
+    const kind = ext === 'txt' ? undefined : (ext === 'pdf' ? 'pdf' : 'docx');
+    const searchName = `${base}.txt`;
+
+    return {
+        title: isYearFile ? `${base} National Tournament Results` : base.replace(/[-_]+/g, ' '),
+        type: isYearFile ? 'History' : 'Text Archive',
+        year: yearMatch ? yearMatch[0] : 'Archive',
+        desc: kind ? `${ext.toUpperCase()} document from the NFA archives.` : 'Text document from the NFA archives.',
+        kind,
+        fileName,
+        url: `${ARCHIVE_FOLDER}/${encodeURIComponent(fileName)}`,
+        textUrl: kind && searchFiles.has(searchName.toLowerCase())
+            ? `${ARCHIVE_FOLDER}/search/${encodeURIComponent(searchName)}`
+            : undefined
+    };
+}
+
+async function loadArchiveFileList() {
+    try {
+        const res = await fetch(`${ARCHIVE_FOLDER}/index.json`, { cache: 'no-store' });
+        if (!res.ok) return;                        // no list yet: keep the hand-written one
+        const list = await res.json();
+        const files = Array.isArray(list.files) ? list.files : [];
+        const inFolder = new Set(files.map(f => f.toLowerCase()));
+        const searchFiles = new Set((list.search || []).map(f => f.toLowerCase()));
+
+        // Described files that exist, in their original order...
+        const described = archives.filter(a => a.fileName && inFolder.has(a.fileName.toLowerCase()));
+        const describedNames = new Set(described.map(a => a.fileName.toLowerCase()));
+        // ...then any new files, newest year first
+        const added = files
+            .filter(f => !describedNames.has(f.toLowerCase()))
+            .map(f => autoArchiveEntry(f, searchFiles))
+            .filter(Boolean)
+            .sort((a, b) => b.year.localeCompare(a.year) || a.title.localeCompare(b.title));
+
+        archives.length = 0;
+        archives.push(...described, ...added);
+    } catch (e) {
+        /* index.json missing or unreadable: keep the hand-written list */
+    }
+}
 // Makes text safe to put inside the page (a .txt file could contain HTML)
 function escapeHTML(str) {
     const div = document.createElement('div');
@@ -355,6 +415,7 @@ document.addEventListener('keydown', e => {
 // Show the cards right away, then load every file in the background
 // so searching covers the full text of each document
 window.addEventListener('DOMContentLoaded', async () => {
+    await loadArchiveFileList();   // use the automatic file list if there is one
     renderArchives();
     await Promise.all(archives.map(async a => {
     if (a.rawText !== undefined) return;
