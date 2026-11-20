@@ -55,18 +55,6 @@
       </div>
     </div>
 
-    <!-- Local Directory Picker for the "archives" folder -->
-    <div class="folder-loader-bar">
-      <div>
-        <strong>Local Text Directory (<code>archives/</code>):</strong>
-        <span id="folder-status">Load your local <code>archives</code> folder to import all <code>.txt</code> documents for full-text search, or click any listed document below.</span>
-      </div>
-      <div>
-        <label for="dir-input" class="btn-gold" style="padding: 0.55rem 1.1rem; font-size: 0.88rem;">📂 Open "archives" Folder (.txt)</label>
-        <input type="file" id="dir-input" webkitdirectory directory multiple style="display: none;" onchange="handleFolderSelect(event)" />
-      </div>
-    </div>
-
     <!-- Search Input & Category Filter -->
     <div class="filter-bar">
       <input
@@ -82,7 +70,7 @@
         <option value="Journal">NFJ Articles (Vol. 39)</option>
         <option value="History">Hall of Fame &amp; Champions</option>
         <option value="Rules">Competition Rules</option>
-        <option value="Text Archive">Local Text Docs (archives/)</option>
+        <option value="Text Archive">Text Documents</option>
       </select>
     </div>
     <p class="result-count" id="result-count"></p>
