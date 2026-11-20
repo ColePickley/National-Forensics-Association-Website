@@ -90,4 +90,38 @@ create policy "users delete own posts, admins delete any"
 
 Go to the *forum.js* file found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
 
-## You're all set!
+### You're all set!
+
+# How to create a new thread:
+
+### 1. Go to the *Table Editor* tab in your Supabase project.
+
+### 2. Click the *thread* table.
+
+### 3. Select *Insert* -> *Insert Row* in the upper right corner.
+
+### 4. Fill in the *name* and *description* boxes with your desired values.
+
+### 5. Hit *Save*!
+
+# How to make a user an admin:
+
+### 1. Go to the *Table Editor* tab in your Supabase project.
+
+### 2. Click the *user* table.
+
+### 3. Right click anywhere on the row representing the user you want to make an admin and click *Edit row*.
+
+### 4. Change the *is_admin* value to *TRUE* and hit *Save*!
+
+# How to ban a user:
+
+### 1. Go to the *Authentication* tab in your Supabase project.
+
+### 2. Click the *Users* tab under *MANAGE*.
+
+### 3. Click the UID of the user you would like to ban.
+
+### 4. Scroll down on the side menu that pops up and select *Ban user*.
+
+### 5. Set the ban duration bfore simply hitting *Confirm ban*!
