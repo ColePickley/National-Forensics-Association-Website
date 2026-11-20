@@ -4,7 +4,20 @@
 
 ### 2. Create a new project (don't adjust any of the default settings).
 
-### 3. Go to the *SQL Editor* tab and paste the following SQL code:
+### 3. Store the archive files in Supabase.
+
+Go to *Storage -> Files -> Buckets* and select *New bucket*. Name this bucket "Archive Files" and turn on *Public bucket*. After that, create three new folders within the bucket titled "txt", "pdf", and "docx". From here, just drag and drop the appropriate file types from the *archives* folder in this repository into the Supabase folders.
+
+### 4. Create a new policy to allow access to the bucket you created.
+
+Go to *Storage -> Files -> Policies* and select *New policy* next to the *Archive Files* bucket. Click *For full customization*. Fill out the sections accordingly:
+- Policy name: Public can list Archive Files
+- Allowed operation: SELECT only
+- Target roles: leave blank for all roles
+- Policy definition (USING): bucket_id = 'Archive Files'
+Finally, hit *Review* and then *Save*.
+
+### 5. Go to the *SQL Editor* tab and paste the following SQL code:
 
 ```bash
 /*
@@ -86,11 +99,11 @@ create policy "users delete own posts, admins delete any"
     using (user_id = auth.uid() or public.is_admin());
 ```
 
-### 4. Hit *Run* in the upper right corner.
+### 6. Hit *Run* in the upper right corner.
 
-### 5. Update the website for your specific Supabase project.
+### 7. Update the website for your specific Supabase project.
 
-Go to the *forum.js* file found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
+Go to the *forum.js* and *archives.js* files found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
 
 ### You're all set!
 

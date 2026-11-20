@@ -8,7 +8,14 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-contactForm.addEventListener('submit', function (e) {
+// Web3Forms keys (from web3forms.com). These are safe to be public.
+const WEB3FORMS_KEYS = {
+    tournament: '622b9984-b0bb-4c13-8137-66b2294967ee',   // sends to nfastandin@gmail.com
+    journal: 'PASTE_JOURNAL_KEY_HERE'                      // not used yet
+};
+const DEFAULT_ERROR_TEXT = errorBanner.textContent.trim();
+
+contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const name = document.getElementById('contact-name').value.trim();
@@ -18,6 +25,7 @@ contactForm.addEventListener('submit', function (e) {
     const message = document.getElementById('contact-message').value.trim();
 
     if (!name || !isValidEmail(email) || !message) {
+    errorBanner.textContent = DEFAULT_ERROR_TEXT;
     errorBanner.classList.add('error');
     errorBanner.style.display = 'block';
     return;
@@ -25,11 +33,14 @@ contactForm.addEventListener('submit', function (e) {
 
     errorBanner.style.display = 'none';
 
-    const targetEmail = topic === 'National Forensic Journal (NFJ)'
-    ? 'nfajournal@gmail.com'
-    : 'nfatournamentcommittee@gmail.com';
+    const isJournal = topic === 'National Forensic Journal (NFJ)';
+    const targetEmail = isJournal ? 'nfajournal@gmail.com' : 'nfatournamentcommittee@gmail.com';
 
-    const subject = encodeURIComponent(`[NFA Contact - ${topic}] From ${name}`);
+    // If there is no journal key yet, NFJ messages go to the main inbox.
+    const hasJournalKey = !WEB3FORMS_KEYS.journal.startsWith('PASTE');
+    const accessKey = (isJournal && hasJournalKey) ? WEB3FORMS_KEYS.journal : WEB3FORMS_KEYS.tournament;
+
+    const subjectText = `[NFA Contact - ${topic}] From ${name}`;
     const bodyLines = [
     `Name: ${name}`,
     `Email: ${email}`,
@@ -40,12 +51,44 @@ contactForm.addEventListener('submit', function (e) {
     message
     ].filter(Boolean).join('\n');
 
-    sendEmailCopy.href = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
+    // Backup link in case sending fails
+    const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(bodyLines)}`;
+    document.getElementById('mailto-fallback').href = mailtoLink;
 
-    confirmationSummary.textContent = `Thank you, ${name}. Your inquiry regarding "${topic}" has been prepared for ${targetEmail}. You can also launch your default mail client below to send an immediate direct copy.`;
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
 
+    try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+        access_key: accessKey,
+        subject: subjectText,
+        from_name: 'NFA Website Contact Form',
+        name: name,
+        email: email,
+        institution: school || 'Not provided',
+        topic: topic,
+        message: message
+        })
+    });
+    const result = await response.json();
+    if (!result.success) throw new Error(result.message || 'Send failed');
+
+    confirmationSummary.textContent = `Thank you, ${name}. Your message about "${topic}" was sent. We will reply to ${email}.`;
+    sendEmailCopy.style.display = 'none';   // already sent, so hide the "send a copy" button
     contactForm.style.display = 'none';
     successCard.classList.add('visible');
+    } catch (err) {
+    console.error('Contact form error:', err);
+    errorBanner.textContent = 'Sorry, your message could not be sent right now. Please use the "Open in Email Client" button below to email us directly.';
+    errorBanner.style.display = 'block';
+    } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Submit Message';
+    }
 });
 
 function resetContactForm() {
