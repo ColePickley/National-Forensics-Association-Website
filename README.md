@@ -1,4 +1,13 @@
-# How to set up Supabase for this website:
+# How to set up this website!
+
+## Table of contents:
+- [Setting up Supabase](#Setting-up-Supabase)
+- [How to create a new forum thread](#How-to-create-a-new-forum-thread)
+- [How to make a user an admin](#How-to-make-a-user-an-admin)
+- [How to ban a user](#How-to-ban-a-user)
+- [Setting up the contact form](#Setting-up-the-contact-form)
+
+## Setting up Supabase
 
 ### 1. Go to the [Supabase website](https://supabase.com/) and create an account.
 
@@ -18,7 +27,9 @@ Go to *Storage -> Files -> Policies* and select *New policy* next to the *Archiv
 
 Finally, hit *Review* and then *Save*.
 
-### 5. Go to the *SQL Editor* tab and paste the following SQL code:
+### 5. Create the database.
+
+Go to the *SQL Editor* tab and paste the following SQL code then hit *Run* in the upper right corner.
 
 ```bash
 /*
@@ -100,15 +111,19 @@ create policy "users delete own posts, admins delete any"
     using (user_id = auth.uid() or public.is_admin());
 ```
 
-### 6. Hit *Run* in the upper right corner.
-
-### 7. Update the website for your specific Supabase project.
+### 6. Update the website for your specific Supabase project.
 
 Go to the *forum.js* and *archives.js* files found in the *js* folder of this repository and edit the values for *SUPABASE_URL* and *SUPABASE_ANON_KEY*. These values can be found in *Project Overview* -> *Server Build APIs* from inside your Supabase project (note that SUPABASE_ANON_KEY is called SUPABASE_PUBLISHABLE_KEY within Supabase).
 
+### 7. Update the email confirmation link.
+
+After the website has been published, go to *Authentication -> URL Configuration* in Supabase and change the *Site URL* to the URL for the forum page.
+
 ### You're all set!
 
-# How to create a new thread:
+
+
+## How to create a new forum thread
 
 ### 1. Go to the *Table Editor* tab in your Supabase project.
 
@@ -120,7 +135,9 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 ### 5. Hit *Save*!
 
-# How to make a user an admin:
+
+
+## How to make a user an admin
 
 ### 1. Go to the *Table Editor* tab in your Supabase project.
 
@@ -130,7 +147,9 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 ### 4. Change the *is_admin* value to *TRUE* and hit *Save*!
 
-# How to ban a user:
+
+
+## How to ban a user
 
 ### 1. Go to the *Authentication* tab in your Supabase project.
 
@@ -144,18 +163,14 @@ Go to the *forum.js* and *archives.js* files found in the *js* folder of this re
 
 
 
-## Contact Form – Notes for the Site Owner
+## Setting up the contact form
 
 The Contact page sends messages to email using **Web3Forms** (web3forms.com), a free service. There is no server or database to manage. Below is what you may need to change.
-
----
 
 ### 1. Current setup
 - **Messages currently go to:** `nfastandin@gmail.com` (a temporary stand-in account the student team created)
 - **Web3Forms account login:** `nfastandin@gmail.com` (Web3Forms logs in by email link, so whoever controls this Gmail controls the form)
 - **Access key location:** `js/contact.js`, line 13
-
----
 
 ### 2. How to change the email that receives messages
 **Recommended way (about 5 minutes):**
@@ -170,8 +185,6 @@ The old stand-in key can simply be ignored or deleted from the stand-in's Web3Fo
 
 **Optional: separate inbox for the Journal (NFJ).** Create a second key with `nfajournal@gmail.com` and put it on **line 14** of `js/contact.js` in place of `PASTE_JOURNAL_KEY_HERE`. NFJ messages will then go to the journal inbox; everything else goes to the line 13 inbox. If line 14 is left as-is, all messages go to the line 13 inbox.
 
----
-
 ### 3. Backup "email us" links
 If the form ever fails, visitors are shown an "Open in Email Client" button. These addresses are set separately from the key:
 - `js/contact.js` line 37 (fills in the backup button after a failed send)
@@ -180,22 +193,16 @@ If the form ever fails, visitors are shown an "Open in Email Client" button. The
 
 Update these if the official NFA emails ever change.
 
----
-
 ### 4. Limits and cost
 - **Free plan: 250 messages per month.** This resets monthly.
 - **It will NOT charge you.** No credit card is ever entered on the free plan. If more than 250 messages come in during one month, the form simply stops sending until the next month, and visitors will see an error telling them to use the "Open in Email Client" button instead.
 - Upgrading is optional. Paid plans allow thousands of messages per month; see web3forms.com/pricing for current prices.
 - Web3Forms only keeps its own copy of messages for 30 days. The emails themselves stay in Gmail permanently.
 
----
-
 ### 5. When the site goes live
 When the website is published at its real web address:
 - Log in to the Web3Forms dashboard and update the form's **Website URL** from `localhost` to the real address.
 - The first few messages may land in Spam. Mark them "Not spam" so future ones arrive in the inbox.
-
----
 
 ### 6. Do not remove
 - The access key in `js/contact.js` is **not a password**. Web3Forms keys are designed to be public, so it is safe on GitHub.
